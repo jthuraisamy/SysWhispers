@@ -1,0 +1,487 @@
+[
+  {
+    "identifiers": ["MEM_EXTENDED_PARAMETER_TYPE", "PMEM_EXTENDED_PARAMETER_TYPE"],
+    "dependencies": [],
+    "definition": "typedef enum _MEM_EXTENDED_PARAMETER_TYPE\n{\n\tMemExtendedParameterInvalidType,\n\tMemExtendedParameterAddressRequirements,\n\tMemExtendedParameterNumaNode,\n\tMemExtendedParameterPartitionHandle,\n\tMemExtendedParameterUserPhysicalHandle,\n\tMemExtendedParameterAttributeFlags,\n\tMemExtendedParameterMax\n} MEM_EXTENDED_PARAMETER_TYPE, *PMEM_EXTENDED_PARAMETER_TYPE;"
+  },
+  {
+    "identifiers": ["MEM_EXTENDED_PARAMETER", "PMEM_EXTENDED_PARAMETER"],
+    "dependencies": [],
+    "definition": "typedef struct _MEM_EXTENDED_PARAMETER\n{\n\tstruct {\n\t\tULONG64 Type;\n\t\tULONG64 Reserved;\n\t} DUMMYSTRUCTNAME;\n\tunion {\n\t\tULONG64 ULong64;\n\t\tPVOID   Pointer;\n\t\tSIZE_T  Size;\n\t\tHANDLE  Handle;\n\t\tULONG   ULong;\n\t} DUMMYUNIONNAME;\n} MEM_EXTENDED_PARAMETER, *PMEM_EXTENDED_PARAMETER;"
+  },
+  {
+    "identifiers": ["IO_STATUS_BLOCK", "PIO_STATUS_BLOCK"],
+    "dependencies": [],
+    "definition": "typedef struct _IO_STATUS_BLOCK\n{\n\tunion\n\t{\n\t\tNTSTATUS Status;\n\t\tVOID*    Pointer;\n\t};\n\tULONG_PTR Information;\n} IO_STATUS_BLOCK, *PIO_STATUS_BLOCK;"
+  },
+  {
+    "identifiers": ["KEY_VALUE_ENTRY", "PKEY_VALUE_ENTRY"],
+    "dependencies": [],
+    "definition": "typedef struct _KEY_VALUE_ENTRY\n{\n\tPUNICODE_STRING ValueName;\n\tULONG           DataLength;\n\tULONG           DataOffset;\n\tULONG           Type;\n} KEY_VALUE_ENTRY, *PKEY_VALUE_ENTRY;"
+  },
+  {
+    "identifiers": ["KEY_SET_INFORMATION_CLASS", "PKEY_SET_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _KEY_SET_INFORMATION_CLASS\n{\n\tKeyWriteTimeInformation,\n\tKeyWow64FlagsInformation,\n\tKeyControlFlagsInformation,\n\tKeySetVirtualizationInformation,\n\tKeySetDebugInformation,\n\tKeySetHandleTagsInformation,\n\tMaxKeySetInfoClass  // MaxKeySetInfoClass should always be the last enum.\n} KEY_SET_INFORMATION_CLASS, *PKEY_SET_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["SYSTEM_INFORMATION_CLASS", "PSYSTEM_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _SYSTEM_INFORMATION_CLASS\n{\n\tSystemBasicInformation = 0,\n\tSystemPerformanceInformation = 2,\n\tSystemTimeOfDayInformation = 3,\n\tSystemProcessInformation = 5,\n\tSystemProcessorPerformanceInformation = 8,\n\tSystemInterruptInformation = 23,\n\tSystemExceptionInformation = 33,\n\tSystemRegistryQuotaInformation = 37,\n\tSystemLookasideInformation = 45,\n\tSystemCodeIntegrityInformation = 103,\n\tSystemPolicyInformation = 134,\n} SYSTEM_INFORMATION_CLASS, *PSYSTEM_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["PROCESSINFOCLASS", "PPROCESSINFOCLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _PROCESSINFOCLASS\n{\n\tProcessBasicInformation = 0,\n\tProcessDebugPort = 7,\n\tProcessWow64Information = 26,\n\tProcessImageFileName = 27,\n\tProcessBreakOnTermination = 29\n} PROCESSINFOCLASS, *PPROCESSINFOCLASS;"
+  },
+  {
+    "identifiers": ["MEMORY_RANGE_ENTRY", "PMEMORY_RANGE_ENTRY"],
+    "dependencies": [],
+    "definition": "typedef struct _MEMORY_RANGE_ENTRY\n{\n\tPVOID  VirtualAddress;\n\tSIZE_T NumberOfBytes;\n} MEMORY_RANGE_ENTRY, *PMEMORY_RANGE_ENTRY;"
+  },
+  {
+    "identifiers": ["T2_SET_PARAMETERS", "PT2_SET_PARAMETERS"],
+    "dependencies": [],
+    "definition": "typedef struct _T2_SET_PARAMETERS_V0\n{\n\tULONG    Version;\n\tULONG    Reserved;\n\tLONGLONG NoWakeTolerance;\n} T2_SET_PARAMETERS, *PT2_SET_PARAMETERS;"
+  },
+  {
+    "identifiers": ["FILE_PATH", "PFILE_PATH"],
+    "dependencies": [],
+    "definition": "typedef struct _FILE_PATH\n{\n\tULONG Version;\n\tULONG Length;\n\tULONG Type;\n\tCHAR  FilePath[1];\n} FILE_PATH, *PFILE_PATH;"
+  },
+  {
+    "identifiers": ["FILE_USER_QUOTA_INFORMATION", "PFILE_USER_QUOTA_INFORMATION"],
+    "dependencies": [],
+    "definition": "typedef struct _FILE_USER_QUOTA_INFORMATION\n{\n\tULONG         NextEntryOffset;\n\tULONG         SidLength;\n\tLARGE_INTEGER ChangeTime;\n\tLARGE_INTEGER QuotaUsed;\n\tLARGE_INTEGER QuotaThreshold;\n\tLARGE_INTEGER QuotaLimit;\n\tSID           Sid[1];\n} FILE_USER_QUOTA_INFORMATION, *PFILE_USER_QUOTA_INFORMATION;"
+  },
+  {
+    "identifiers": ["FILE_QUOTA_LIST_INFORMATION", "PFILE_QUOTA_LIST_INFORMATION"],
+    "dependencies": [],
+    "definition": "typedef struct _FILE_QUOTA_LIST_INFORMATION\n{\n\tULONG NextEntryOffset;\n\tULONG SidLength;\n\tSID   Sid[1];\n} FILE_QUOTA_LIST_INFORMATION, *PFILE_QUOTA_LIST_INFORMATION;"
+  },
+  {
+    "identifiers": ["FILE_NETWORK_OPEN_INFORMATION", "PFILE_NETWORK_OPEN_INFORMATION"],
+    "dependencies": [],
+    "definition": "typedef struct _FILE_NETWORK_OPEN_INFORMATION\n{\n\tLARGE_INTEGER CreationTime;\n\tLARGE_INTEGER LastAccessTime;\n\tLARGE_INTEGER LastWriteTime;\n\tLARGE_INTEGER ChangeTime;\n\tLARGE_INTEGER AllocationSize;\n\tLARGE_INTEGER EndOfFile;\n\tULONG         FileAttributes;\n\tULONG         Unknown;\n} FILE_NETWORK_OPEN_INFORMATION, *PFILE_NETWORK_OPEN_INFORMATION;"
+  },
+  {
+    "identifiers": ["FILTER_BOOT_OPTION_OPERATION", "PFILTER_BOOT_OPTION_OPERATION"],
+    "dependencies": [],
+    "definition": "typedef enum _FILTER_BOOT_OPTION_OPERATION\n{\n\tFilterBootOptionOperationOpenSystemStore,\n\tFilterBootOptionOperationSetElement,\n\tFilterBootOptionOperationDeleteElement,\n\tFilterBootOptionOperationMax\n} FILTER_BOOT_OPTION_OPERATION, *PFILTER_BOOT_OPTION_OPERATION;"
+  },
+  {
+    "identifiers": ["EVENT_TYPE", "PEVENT_TYPE"],
+    "dependencies": [],
+    "definition": "typedef enum _EVENT_TYPE\n{\n\tNotificationEvent = 0,\n\tSynchronizationEvent = 1,\n} EVENT_TYPE, *PEVENT_TYPE;"
+  },
+  {
+    "identifiers": ["FILE_FULL_EA_INFORMATION", "PFILE_FULL_EA_INFORMATION"],
+    "dependencies": [],
+    "definition": "typedef struct _FILE_FULL_EA_INFORMATION\n{\n\tULONG  NextEntryOffset;\n\tUCHAR  Flags;\n\tUCHAR  EaNameLength;\n\tUSHORT EaValueLength;\n\tCHAR   EaName[1];\n} FILE_FULL_EA_INFORMATION, *PFILE_FULL_EA_INFORMATION;"
+  },
+  {
+    "identifiers": ["FILE_GET_EA_INFORMATION", "PFILE_GET_EA_INFORMATION"],
+    "dependencies": [],
+    "definition": "typedef struct _FILE_GET_EA_INFORMATION\n{\n\tULONG NextEntryOffset;\n\tBYTE  EaNameLength;\n\tCHAR  EaName[1];\n} FILE_GET_EA_INFORMATION, *PFILE_GET_EA_INFORMATION;"
+  },
+  {
+    "identifiers": ["BOOT_OPTIONS", "PBOOT_OPTIONS"],
+    "dependencies": [],
+    "definition": "typedef struct _BOOT_OPTIONS\n{\n\tULONG Version;\n\tULONG Length;\n\tULONG Timeout;\n\tULONG CurrentBootEntryId;\n\tULONG NextBootEntryId;\n\tWCHAR HeadlessRedirection[1];\n} BOOT_OPTIONS, *PBOOT_OPTIONS;"
+  },
+  {
+    "identifiers": ["WNF_CHANGE_STAMP", "PWNF_CHANGE_STAMP"],
+    "dependencies": [],
+    "definition": "typedef ULONG WNF_CHANGE_STAMP, *PWNF_CHANGE_STAMP;"
+  },
+  {
+    "identifiers": ["WNF_DATA_SCOPE", "PWNF_DATA_SCOPE"],
+    "dependencies": [],
+    "definition": "typedef enum _WNF_DATA_SCOPE\n{\n\tWnfDataScopeSystem = 0,\n\tWnfDataScopeSession = 1,\n\tWnfDataScopeUser = 2,\n\tWnfDataScopeProcess = 3,\n\tWnfDataScopeMachine = 4\n} WNF_DATA_SCOPE, *PWNF_DATA_SCOPE;"
+  },
+  {
+    "identifiers": ["WNF_STATE_NAME_LIFETIME", "PWNF_STATE_NAME_LIFETIME"],
+    "dependencies": [],
+    "definition": "typedef enum _WNF_STATE_NAME_LIFETIME\n{\n\tWnfWellKnownStateName = 0,\n\tWnfPermanentStateName = 1,\n\tWnfPersistentStateName = 2,\n\tWnfTemporaryStateName = 3\n} WNF_STATE_NAME_LIFETIME, *PWNF_STATE_NAME_LIFETIME;"
+  },
+  {
+    "identifiers": ["VIRTUAL_MEMORY_INFORMATION_CLASS", "PVIRTUAL_MEMORY_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _VIRTUAL_MEMORY_INFORMATION_CLASS\n{\n\tVmPrefetchInformation,\n\tVmPagePriorityInformation,\n\tVmCfgCallTargetInformation\n} VIRTUAL_MEMORY_INFORMATION_CLASS, *PVIRTUAL_MEMORY_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["IO_SESSION_EVENT", "PIO_SESSION_EVENT"],
+    "dependencies": [],
+    "definition": "typedef enum _IO_SESSION_EVENT\n{\n\tIoSessionEventIgnore,\n\tIoSessionEventCreated,\n\tIoSessionEventTerminated,\n\tIoSessionEventConnected,\n\tIoSessionEventDisconnected,\n\tIoSessionEventLogon,\n\tIoSessionEventLogoff,\n\tIoSessionEventMax\n} IO_SESSION_EVENT, *PIO_SESSION_EVENT;"
+  },
+  {
+    "identifiers": ["PORT_INFORMATION_CLASS", "PPORT_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _PORT_INFORMATION_CLASS\n{\n\tPortBasicInformation,\n#if DEVL\n\tPortDumpInformation\n#endif\n} PORT_INFORMATION_CLASS, *PPORT_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["PLUGPLAY_CONTROL_CLASS", "PPLUGPLAY_CONTROL_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _PLUGPLAY_CONTROL_CLASS\n{\n\tPlugPlayControlEnumerateDevice,\n\tPlugPlayControlRegisterNewDevice,\n\tPlugPlayControlDeregisterDevice,\n\tPlugPlayControlInitializeDevice,\n\tPlugPlayControlStartDevice,\n\tPlugPlayControlUnlockDevice,\n\tPlugPlayControlQueryAndRemoveDevice,\n\tPlugPlayControlUserResponse,\n\tPlugPlayControlGenerateLegacyDevice,\n\tPlugPlayControlGetInterfaceDeviceList,\n\tPlugPlayControlProperty,\n\tPlugPlayControlDeviceClassAssociation,\n\tPlugPlayControlGetRelatedDevice,\n\tPlugPlayControlGetInterfaceDeviceAlias,\n\tPlugPlayControlDeviceStatus,\n\tPlugPlayControlGetDeviceDepth,\n\tPlugPlayControlQueryDeviceRelations,\n\tPlugPlayControlTargetDeviceRelation,\n\tPlugPlayControlQueryConflictList,\n\tPlugPlayControlRetrieveDock,\n\tPlugPlayControlResetDevice,\n\tPlugPlayControlHaltDevice,\n\tPlugPlayControlGetBlockedDriverList,\n\tMaxPlugPlayControl\n} PLUGPLAY_CONTROL_CLASS, *PPLUGPLAY_CONTROL_CLASS;"
+  },
+  {
+    "identifiers": ["IO_COMPLETION_INFORMATION_CLASS", "PIO_COMPLETION_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _IO_COMPLETION_INFORMATION_CLASS\n{\n\tIoCompletionBasicInformation\n} IO_COMPLETION_INFORMATION_CLASS, *PIO_COMPLETION_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["SECTION_INHERIT", "PSECTION_INHERIT"],
+    "dependencies": [],
+    "definition": "typedef enum _SECTION_INHERIT\n{\n\tViewShare = 1,\n\tViewUnmap = 2\n} SECTION_INHERIT, *PSECTION_INHERIT;"
+  },
+  {
+    "identifiers": ["PS_ATTRIBUTE", "PPS_ATTRIBUTE"],
+    "dependencies": [],
+    "definition": "typedef struct _PS_ATTRIBUTE\n{\n\tULONG  Attribute;\n\tSIZE_T Size;\n\tunion\n\t{\n\t\tULONG Value;\n\t\tPVOID ValuePtr;\n\t} u1;\n\tPSIZE_T ReturnLength;\n} PS_ATTRIBUTE, *PPS_ATTRIBUTE;"
+  },
+  {
+    "identifiers": ["DEBUGOBJECTINFOCLASS", "PDEBUGOBJECTINFOCLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _DEBUGOBJECTINFOCLASS\n{\n\tDebugObjectFlags = 1,\n\tMaxDebugObjectInfoClass\n} DEBUGOBJECTINFOCLASS, *PDEBUGOBJECTINFOCLASS;"
+  },
+  {
+    "identifiers": ["SEMAPHORE_INFORMATION_CLASS", "PSEMAPHORE_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _SEMAPHORE_INFORMATION_CLASS\n{\n\tSemaphoreBasicInformation\n} SEMAPHORE_INFORMATION_CLASS, *PSEMAPHORE_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["PS_ATTRIBUTE_LIST", "PPS_ATTRIBUTE_LIST"],
+    "dependencies": ["PS_ATTRIBUTE"],
+    "definition": "typedef struct _PS_ATTRIBUTE_LIST\n{\n\tSIZE_T       TotalLength;\n\tPS_ATTRIBUTE Attributes[1];\n} PS_ATTRIBUTE_LIST, *PPS_ATTRIBUTE_LIST;"
+  },
+  {
+    "identifiers": ["VDMSERVICECLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _VDMSERVICECLASS\n{\n\tVdmStartExecution,\n\tVdmQueueInterrupt,\n\tVdmDelayInterrupt,\n\tVdmInitialize,\n\tVdmFeatures,\n\tVdmSetInt21Handler,\n\tVdmQueryDir,\n\tVdmPrinterDirectIoOpen,\n\tVdmPrinterDirectIoClose,\n\tVdmPrinterInitialize,\n\tVdmSetLdtEntries,\n\tVdmSetProcessLdtInfo,\n\tVdmAdlibEmulation,\n\tVdmPMCliControl,\n\tVdmQueryVdmProcess\n} VDMSERVICECLASS, *PVDMSERVICECLASS;"
+  },
+  {
+    "identifiers": ["PS_CREATE_STATE", "PPS_CREATE_STATE"],
+    "dependencies": [],
+    "definition": "typedef enum _PS_CREATE_STATE\n{\n\tPsCreateInitialState,\n\tPsCreateFailOnFileOpen,\n\tPsCreateFailOnSectionCreate,\n\tPsCreateFailExeFormat,\n\tPsCreateFailMachineMismatch,\n\tPsCreateFailExeName,\n\tPsCreateSuccess,\n\tPsCreateMaximumStates\n} PS_CREATE_STATE, *PPS_CREATE_STATE;"
+  },
+  {
+    "identifiers": ["PS_CREATE_INFO", "PPS_CREATE_INFO"],
+    "dependencies": ["PS_CREATE_STATE"],
+    "definition": "typedef struct _PS_CREATE_INFO\n{\n\tSIZE_T Size;\n\tPS_CREATE_STATE State;\n\tunion\n\t{\n\t\t// PsCreateInitialState\n\t\tstruct {\n\t\t\tunion {\n\t\t\t\tULONG InitFlags;\n\t\t\t\tstruct {\n\t\t\t\t\tUCHAR  WriteOutputOnExit : 1;\n\t\t\t\t\tUCHAR  DetectManifest : 1;\n\t\t\t\t\tUCHAR  IFEOSkipDebugger : 1;\n\t\t\t\t\tUCHAR  IFEODoNotPropagateKeyState : 1;\n\t\t\t\t\tUCHAR  SpareBits1 : 4;\n\t\t\t\t\tUCHAR  SpareBits2 : 8;\n\t\t\t\t\tUSHORT ProhibitedImageCharacteristics : 16;\n\t\t\t\t};\n\t\t\t};\n\t\t\tACCESS_MASK AdditionalFileAccess;\n\t\t} InitState;\n\t\t// PsCreateFailOnSectionCreate\n\t\tstruct {\n\t\t\tHANDLE FileHandle;\n\t\t} FailSection;\n\t\t// PsCreateFailExeFormat\n\t\tstruct {\n\t\t\tUSHORT DllCharacteristics;\n\t\t} ExeFormat;\n\t\t// PsCreateFailExeName\n\t\tstruct {\n\t\t\tHANDLE IFEOKey;\n\t\t} ExeName;\n\t\t// PsCreateSuccess\n\t\tstruct {\n\t\t\tunion {\n\t\t\t\tULONG OutputFlags;\n\t\t\t\tstruct {\n\t\t\t\t\tUCHAR  ProtectedProcess : 1;\n\t\t\t\t\tUCHAR  AddressSpaceOverride : 1;\n\t\t\t\t\tUCHAR  DevOverrideEnabled : 1; // from Image File Execution Options\n\t\t\t\t\tUCHAR  ManifestDetected : 1;\n\t\t\t\t\tUCHAR  ProtectedProcessLight : 1;\n\t\t\t\t\tUCHAR  SpareBits1 : 3;\n\t\t\t\t\tUCHAR  SpareBits2 : 8;\n\t\t\t\t\tUSHORT SpareBits3 : 16;\n\t\t\t\t};\n\t\t\t};\n\t\t\tHANDLE    FileHandle;\n\t\t\tHANDLE    SectionHandle;\n\t\t\tULONGLONG UserProcessParametersNative;\n\t\t\tULONG     UserProcessParametersWow64;\n\t\t\tULONG     CurrentParameterFlags;\n\t\t\tULONGLONG PebAddressNative;\n\t\t\tULONG     PebAddressWow64;\n\t\t\tULONGLONG ManifestAddress;\n\t\t\tULONG     ManifestSize;\n\t\t} SuccessState;\n\t};\n} PS_CREATE_INFO, *PPS_CREATE_INFO;"
+  },
+  {
+    "identifiers": ["MEMORY_INFORMATION_CLASS", "PMEMORY_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _MEMORY_INFORMATION_CLASS\n{\n\tMemoryBasicInformation,\n\tMemoryWorkingSetInformation,\n\tMemoryMappedFilenameInformation,\n\tMemoryRegionInformation,\n\tMemoryWorkingSetExInformation,\n\tMemorySharedCommitInformation,\n\tMemoryImageInformation,\n\tMemoryRegionInformationEx,\n\tMemoryPrivilegedBasicInformation,\n\tMemoryEnclaveImageInformation,\n\tMemoryBasicInformationCapped\n} MEMORY_INFORMATION_CLASS, *PMEMORY_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["MEMORY_RESERVE_TYPE", "PMEMORY_RESERVE_TYPE"],
+    "dependencies": [],
+    "definition": "typedef enum _MEMORY_RESERVE_TYPE\n{\n\tMemoryReserveUserApc,\n\tMemoryReserveIoCompletion,\n\tMemoryReserveTypeMax\n} MEMORY_RESERVE_TYPE, *PMEMORY_RESERVE_TYPE;"
+  },
+  {
+    "identifiers": ["ALPC_PORT_INFORMATION_CLASS", "PALPC_PORT_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _ALPC_PORT_INFORMATION_CLASS\n{\n\tAlpcBasicInformation,\n\tAlpcPortInformation,\n\tAlpcAssociateCompletionPortInformation,\n\tAlpcConnectedSIDInformation,\n\tAlpcServerInformation,\n\tAlpcMessageZoneInformation,\n\tAlpcRegisterCompletionListInformation,\n\tAlpcUnregisterCompletionListInformation,\n\tAlpcAdjustCompletionListConcurrencyCountInformation,\n\tAlpcRegisterCallbackInformation,\n\tAlpcCompletionListRundownInformation\n} ALPC_PORT_INFORMATION_CLASS, *PALPC_PORT_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["ALPC_CONTEXT_ATTR", "PALPC_CONTEXT_ATTR"],
+    "dependencies": [],
+    "definition": "typedef struct _ALPC_CONTEXT_ATTR\n{\n\tPVOID PortContext;\n\tPVOID MessageContext;\n\tULONG SequenceNumber;\n\tULONG MessageID;\n\tULONG CallbackID;\n} ALPC_CONTEXT_ATTR, *PALPC_CONTEXT_ATTR;"
+  },
+  {
+    "identifiers": ["ALPC_DATA_VIEW_ATTR", "PALPC_DATA_VIEW_ATTR"],
+    "dependencies": [],
+    "definition": "typedef struct _ALPC_DATA_VIEW_ATTR\n{\n\tULONG  Flags;\n\tHANDLE SectionHandle;\n\tPVOID  ViewBase;\n\tSIZE_T ViewSize;\n} ALPC_DATA_VIEW_ATTR, *PALPC_DATA_VIEW_ATTR;"
+  },
+  {
+    "identifiers": ["ALPC_SECURITY_ATTR", "PALPC_SECURITY_ATTR"],
+    "dependencies": [],
+    "definition": "typedef struct _ALPC_SECURITY_ATTR\n{\n\tULONG                        Flags;\n\tPSECURITY_QUALITY_OF_SERVICE SecurityQos;\n\tHANDLE                       ContextHandle;\n\tULONG                        Reserved1;\n\tULONG                        Reserved2;\n} ALPC_SECURITY_ATTR, *PALPC_SECURITY_ATTR;"
+  },
+  {
+    "identifiers": ["PPVOID"],
+    "dependencies": [],
+    "definition": "typedef PVOID* PPVOID;"
+  },
+  {
+    "identifiers": ["KPROFILE_SOURCE", "PKPROFILE_SOURCE"],
+    "dependencies": [],
+    "definition": "typedef enum _KPROFILE_SOURCE\n{\n\tProfileTime = 0,\n\tProfileAlignmentFixup = 1,\n\tProfileTotalIssues = 2,\n\tProfilePipelineDry = 3,\n\tProfileLoadInstructions = 4,\n\tProfilePipelineFrozen = 5,\n\tProfileBranchInstructions = 6,\n\tProfileTotalNonissues = 7,\n\tProfileDcacheMisses = 8,\n\tProfileIcacheMisses = 9,\n\tProfileCacheMisses = 10,\n\tProfileBranchMispredictions = 11,\n\tProfileStoreInstructions = 12,\n\tProfileFpInstructions = 13,\n\tProfileIntegerInstructions = 14,\n\tProfile2Issue = 15,\n\tProfile3Issue = 16,\n\tProfile4Issue = 17,\n\tProfileSpecialInstructions = 18,\n\tProfileTotalCycles = 19,\n\tProfileIcacheIssues = 20,\n\tProfileDcacheAccesses = 21,\n\tProfileMemoryBarrierCycles = 22,\n\tProfileLoadLinkedIssues = 23,\n\tProfileMaximum = 24,\n} KPROFILE_SOURCE, *PKPROFILE_SOURCE;"
+  },
+  {
+    "identifiers": ["ALPC_MESSAGE_INFORMATION_CLASS", "PALPC_MESSAGE_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _ALPC_MESSAGE_INFORMATION_CLASS\n{\n\tAlpcMessageSidInformation,\n\tAlpcMessageTokenModifiedIdInformation\n} ALPC_MESSAGE_INFORMATION_CLASS, *PALPC_MESSAGE_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["WORKERFACTORYINFOCLASS", "PWORKERFACTORYINFOCLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _WORKERFACTORYINFOCLASS\n{\n\tWorkerFactoryTimeout,\n\tWorkerFactoryRetryTimeout,\n\tWorkerFactoryIdleTimeout,\n\tWorkerFactoryBindingCount,\n\tWorkerFactoryThreadMinimum,\n\tWorkerFactoryThreadMaximum,\n\tWorkerFactoryPaused,\n\tWorkerFactoryBasicInformation,\n\tWorkerFactoryAdjustThreadGoal,\n\tWorkerFactoryCallbackType,\n\tWorkerFactoryStackInformation,\n\tMaxWorkerFactoryInfoClass\n} WORKERFACTORYINFOCLASS, *PWORKERFACTORYINFOCLASS;"
+  },
+  {
+    "identifiers": ["MEMORY_PARTITION_INFORMATION_CLASS", "PMEMORY_PARTITION_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _MEMORY_PARTITION_INFORMATION_CLASS\n{\n\tSystemMemoryPartitionInformation,\n\tSystemMemoryPartitionMoveMemory,\n\tSystemMemoryPartitionAddPagefile,\n\tSystemMemoryPartitionCombineMemory,\n\tSystemMemoryPartitionInitialAddMemory,\n\tSystemMemoryPartitionGetMemoryEvents,\n\tSystemMemoryPartitionMax\n} MEMORY_PARTITION_INFORMATION_CLASS, *PMEMORY_PARTITION_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["MUTANT_INFORMATION_CLASS", "PMUTANT_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _MUTANT_INFORMATION_CLASS\n{\n\tMutantBasicInformation,\n\tMutantOwnerInformation\n} MUTANT_INFORMATION_CLASS, *PMUTANT_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["ATOM_INFORMATION_CLASS", "PATOM_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _ATOM_INFORMATION_CLASS\n{\n\tAtomBasicInformation,\n\tAtomTableInformation\n} ATOM_INFORMATION_CLASS, *PATOM_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["SHUTDOWN_ACTION"],
+    "dependencies": [],
+    "definition": "typedef enum _SHUTDOWN_ACTION {\n\tShutdownNoReboot,\n\tShutdownReboot,\n\tShutdownPowerOff\n} SHUTDOWN_ACTION;"
+  },
+  {
+    "identifiers": ["PTIMER_APC_ROUTINE"],
+    "dependencies": [],
+    "definition": "typedef VOID(CALLBACK* PTIMER_APC_ROUTINE)(\n\tIN PVOID TimerContext,\n\tIN ULONG TimerLowValue,\n\tIN LONG TimerHighValue);"
+  },
+  {
+    "identifiers": ["KEY_VALUE_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _KEY_VALUE_INFORMATION_CLASS {\n\tKeyValueBasicInformation = 0,\n\tKeyValueFullInformation,\n\tKeyValuePartialInformation,\n\tKeyValueFullInformationAlign64,\n\tKeyValuePartialInformationAlign64,\n\tMaxKeyValueInfoClass\n} KEY_VALUE_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["PLANGID"],
+    "dependencies": [],
+    "definition": "typedef LANGID* PLANGID;"
+  },
+  {
+    "identifiers": ["PLUGPLAY_EVENT_CATEGORY", "PPLUGPLAY_EVENT_CATEGORY"],
+    "dependencies": [],
+    "definition": "typedef enum _PLUGPLAY_EVENT_CATEGORY\n{\n\tHardwareProfileChangeEvent,\n\tTargetDeviceChangeEvent,\n\tDeviceClassChangeEvent,\n\tCustomDeviceEvent,\n\tDeviceInstallEvent,\n\tDeviceArrivalEvent,\n\tPowerEvent,\n\tVetoEvent,\n\tBlockedDriverEvent,\n\tInvalidIDEvent,\n\tMaxPlugEventCategory\n} PLUGPLAY_EVENT_CATEGORY, *PPLUGPLAY_EVENT_CATEGORY;"
+  },
+  {
+    "identifiers": ["PNP_VETO_TYPE", "PPNP_VETO_TYPE"],
+    "dependencies": [],
+    "definition": "typedef enum _PNP_VETO_TYPE\n{\n\tPNP_VetoTypeUnknown, // unspecified\n\tPNP_VetoLegacyDevice, // instance path\n\tPNP_VetoPendingClose, // instance path\n\tPNP_VetoWindowsApp, // module\n\tPNP_VetoWindowsService, // service\n\tPNP_VetoOutstandingOpen, // instance path\n\tPNP_VetoDevice, // instance path\n\tPNP_VetoDriver, // driver service name\n\tPNP_VetoIllegalDeviceRequest, // instance path\n\tPNP_VetoInsufficientPower, // unspecified\n\tPNP_VetoNonDisableable, // instance path\n\tPNP_VetoLegacyDriver, // service\n\tPNP_VetoInsufficientRights  // unspecified\n} PNP_VETO_TYPE, *PPNP_VETO_TYPE;"
+  },
+  {
+    "identifiers": ["PLUGPLAY_EVENT_BLOCK", "PPLUGPLAY_EVENT_BLOCK"],
+    "dependencies": ["PLUGPLAY_EVENT_CATEGORY", "PNP_VETO_TYPE"],
+    "definition": "typedef struct _PLUGPLAY_EVENT_BLOCK\n{\n\tGUID EventGuid;\n\tPLUGPLAY_EVENT_CATEGORY EventCategory;\n\tPULONG Result;\n\tULONG Flags;\n\tULONG TotalSize;\n\tPVOID DeviceObject;\n\n\tunion\n\t{\n\t\tstruct\n\t\t{\n\t\t\tGUID ClassGuid;\n\t\t\tWCHAR SymbolicLinkName[1];\n\t\t} DeviceClass;\n\t\tstruct\n\t\t{\n\t\t\tWCHAR DeviceIds[1];\n\t\t} TargetDevice;\n\t\tstruct\n\t\t{\n\t\t\tWCHAR DeviceId[1];\n\t\t} InstallDevice;\n\t\tstruct\n\t\t{\n\t\t\tPVOID NotificationStructure;\n\t\t\tWCHAR DeviceIds[1];\n\t\t} CustomNotification;\n\t\tstruct\n\t\t{\n\t\t\tPVOID Notification;\n\t\t} ProfileNotification;\n\t\tstruct\n\t\t{\n\t\t\tULONG NotificationCode;\n\t\t\tULONG NotificationData;\n\t\t} PowerNotification;\n\t\tstruct\n\t\t{\n\t\t\tPNP_VETO_TYPE VetoType;\n\t\t\tWCHAR DeviceIdVetoNameBuffer[1]; // DeviceId<null>VetoName<null><null>\n\t\t} VetoNotification;\n\t\tstruct\n\t\t{\n\t\t\tGUID BlockedDriverGuid;\n\t\t} BlockedDriverNotification;\n\t\tstruct\n\t\t{\n\t\t\tWCHAR ParentId[1];\n\t\t} InvalidIDNotification;\n\t} u;\n} PLUGPLAY_EVENT_BLOCK, *PPLUGPLAY_EVENT_BLOCK;"
+  },
+  {
+    "identifiers": ["PIO_APC_ROUTINE"],
+    "dependencies": ["PIO_STATUS_BLOCK"],
+    "definition": "typedef VOID(NTAPI* PIO_APC_ROUTINE) (\n\tIN PVOID            ApcContext,\n\tIN PIO_STATUS_BLOCK IoStatusBlock,\n\tIN ULONG            Reserved);"
+  },
+  {
+    "identifiers": ["KNORMAL_ROUTINE"],
+    "dependencies": [],
+    "definition": "typedef VOID(KNORMAL_ROUTINE) (\n\tIN PVOID NormalContext,\n\tIN PVOID SystemArgument1,\n\tIN PVOID SystemArgument2);"
+  },
+  {
+    "identifiers": ["PKNORMAL_ROUTINE"],
+    "dependencies": ["KNORMAL_ROUTINE"],
+    "definition": "typedef KNORMAL_ROUTINE* PKNORMAL_ROUTINE;"
+  },
+  {
+    "identifiers": ["DIRECTORY_NOTIFY_INFORMATION_CLASS", "PDIRECTORY_NOTIFY_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _DIRECTORY_NOTIFY_INFORMATION_CLASS\n{\n\tDirectoryNotifyInformation = 1,\n\tDirectoryNotifyExtendedInformation = 2,\n} DIRECTORY_NOTIFY_INFORMATION_CLASS, *PDIRECTORY_NOTIFY_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["EVENT_INFORMATION_CLASS", "PEVENT_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _EVENT_INFORMATION_CLASS\n{\n\tEventBasicInformation\n} EVENT_INFORMATION_CLASS, *PEVENT_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["ALPC_MESSAGE_ATTRIBUTES", "PALPC_MESSAGE_ATTRIBUTES"],
+    "dependencies": [],
+    "definition": "typedef struct _ALPC_MESSAGE_ATTRIBUTES\n{\n\tunsigned long AllocatedAttributes;\n\tunsigned long ValidAttributes;\n} ALPC_MESSAGE_ATTRIBUTES, *PALPC_MESSAGE_ATTRIBUTES;"
+  },
+  {
+    "identifiers": ["ALPC_PORT_ATTRIBUTES", "PALPC_PORT_ATTRIBUTES"],
+    "dependencies": [],
+    "definition": "typedef struct _ALPC_PORT_ATTRIBUTES\n{\n\tULONG                       Flags;\n\tSECURITY_QUALITY_OF_SERVICE SecurityQos;\n\tSIZE_T                      MaxMessageLength;\n\tSIZE_T                      MemoryBandwidth;\n\tSIZE_T                      MaxPoolUsage;\n\tSIZE_T                      MaxSectionSize;\n\tSIZE_T                      MaxViewSize;\n\tSIZE_T                      MaxTotalSectionSize;\n\tULONG                       DupObjectTypes;\n#ifdef _WIN64\n\tULONG                       Reserved;\n#endif\n} ALPC_PORT_ATTRIBUTES, *PALPC_PORT_ATTRIBUTES;"
+  },
+  {
+    "identifiers": ["IO_SESSION_STATE", "PIO_SESSION_STATE"],
+    "dependencies": [],
+    "definition": "typedef enum _IO_SESSION_STATE\n{\n\tIoSessionStateCreated = 1,\n\tIoSessionStateInitialized = 2,\n\tIoSessionStateConnected = 3,\n\tIoSessionStateDisconnected = 4,\n\tIoSessionStateDisconnectedLoggedOn = 5,\n\tIoSessionStateLoggedOn = 6,\n\tIoSessionStateLoggedOff = 7,\n\tIoSessionStateTerminated = 8,\n\tIoSessionStateMax = 9,\n} IO_SESSION_STATE, *PIO_SESSION_STATE;"
+  },
+  {
+    "identifiers": ["WNF_STATE_NAME", "PWNF_STATE_NAME"],
+    "dependencies": [],
+    "definition": "typedef struct _WNF_STATE_NAME\n{\n\tULONG Data[2];\n} WNF_STATE_NAME, *PWNF_STATE_NAME;"
+  },
+  {
+    "identifiers": ["PCWNF_STATE_NAME"],
+    "dependencies": ["WNF_STATE_NAME"],
+    "definition": "typedef const WNF_STATE_NAME *PCWNF_STATE_NAME;"
+  },
+  {
+    "identifiers": ["WNF_TYPE_ID", "PWNF_TYPE_ID"],
+    "dependencies": [],
+    "definition": "typedef struct _WNF_TYPE_ID\n{\n\tGUID TypeId;\n} WNF_TYPE_ID, *PWNF_TYPE_ID;"
+  },
+  {
+    "identifiers": ["PCWNF_TYPE_ID"],
+    "dependencies": ["WNF_TYPE_ID"],
+    "definition": "typedef const WNF_TYPE_ID *PCWNF_TYPE_ID;"
+  },
+  {
+    "identifiers": ["WNF_DELIVERY_DESCRIPTOR", "PWNF_DELIVERY_DESCRIPTOR"],
+    "dependencies": ["WNF_STATE_NAME", "WNF_TYPE_ID"],
+    "definition": "typedef struct _WNF_DELIVERY_DESCRIPTOR\n{\n\tunsigned __int64 SubscriptionId;\n\tWNF_STATE_NAME   StateName;\n\tunsigned long    ChangeStamp;\n\tunsigned long    StateDataSize;\n\tunsigned long    EventMask;\n\tWNF_TYPE_ID      TypeId;\n\tunsigned long    StateDataOffset;\n} WNF_DELIVERY_DESCRIPTOR, *PWNF_DELIVERY_DESCRIPTOR;"
+  },
+  {
+    "identifiers": ["DEBUG_CONTROL_CODE", "PPDEBUG_CONTROL_CODE"],
+    "dependencies": [],
+    "definition": "typedef enum _DEBUG_CONTROL_CODE\n{\n\tSysDbgQueryModuleInformation = 0,\n\tSysDbgQueryTraceInformation = 1,\n\tSysDbgSetTracePoint = 2,\n\tSysDbgSetSpecialCall = 3,\n\tSysDbgClearSpecialCalls = 4,\n\tSysDbgQuerySpecialCalls = 5,\n\tSysDbgBreakPoint = 6,\n\tSysDbgQueryVersion = 7,\n\tSysDbgReadVirtual = 8,\n\tSysDbgWriteVirtual = 9,\n\tSysDbgReadPhysical = 10,\n\tSysDbgWritePhysical = 11,\n\tSysDbgReadControlSpace = 12,\n\tSysDbgWriteControlSpace = 13,\n\tSysDbgReadIoSpace = 14,\n\tSysDbgWriteIoSpace = 15,\n\tSysDbgReadMsr = 16,\n\tSysDbgWriteMsr = 17,\n\tSysDbgReadBusData = 18,\n\tSysDbgWriteBusData = 19,\n\tSysDbgCheckLowMemory = 20,\n\tSysDbgEnableKernelDebugger = 21,\n\tSysDbgDisableKernelDebugger = 22,\n\tSysDbgGetAutoKdEnable = 23,\n\tSysDbgSetAutoKdEnable = 24,\n\tSysDbgGetPrintBufferSize = 25,\n\tSysDbgSetPrintBufferSize = 26,\n\tSysDbgGetKdUmExceptionEnable = 27,\n\tSysDbgSetKdUmExceptionEnable = 28,\n\tSysDbgGetTriageDump = 29,\n\tSysDbgGetKdBlockEnable = 30,\n\tSysDbgSetKdBlockEnable = 31\n} DEBUG_CONTROL_CODE, *PDEBUG_CONTROL_CODE;"
+  },
+  {
+    "identifiers": ["CLIENT_ID", "PCLIENT_ID"],
+    "dependencies": [],
+    "definition": "typedef struct _CLIENT_ID\n{\n\tvoid* UniqueProcess;\n\tvoid* UniqueThread;\n} CLIENT_ID, *PCLIENT_ID;"
+  },
+  {
+    "identifiers": ["PORT_MESSAGE", "PPORT_MESSAGE"],
+    "dependencies": ["CLIENT_ID"],
+    "definition": "typedef struct _PORT_MESSAGE\n{\n\tunion\n\t{\n\t\tunion\n\t\t{\n\t\t\tstruct\n\t\t\t{\n\t\t\t\tshort DataLength;\n\t\t\t\tshort TotalLength;\n\t\t\t} s1;\n\t\t\tunsigned long Length;\n\t\t};\n\t} u1;\n\tunion\n\t{\n\t\tunion\n\t\t{\n\t\t\tstruct\n\t\t\t{\n\t\t\t\tshort Type;\n\t\t\t\tshort DataInfoOffset;\n\t\t\t} s2;\n\t\t\tunsigned long ZeroInit;\n\t\t};\n\t} u2;\n\tunion\n\t{\n\t\tCLIENT_ID ClientId;\n\t\tdouble    DoNotUseThisField;\n\t};\n\tunsigned long MessageId;\n\tunion\n\t{\n\t\tunsigned __int64 ClientViewSize;\n\t\tstruct\n\t\t{\n\t\t\tunsigned long CallbackId;\n\t\t\tlong          __PADDING__[1];\n\t\t};\n\t};\n} PORT_MESSAGE, *PPORT_MESSAGE;"
+  },
+  {
+    "identifiers": ["FILE_BASIC_INFORMATION", "PFILE_BASIC_INFORMATION"],
+    "dependencies": [],
+    "definition": "typedef struct FILE_BASIC_INFORMATION\n{\n\tLARGE_INTEGER CreationTime;\n\tLARGE_INTEGER LastAccessTime;\n\tLARGE_INTEGER LastWriteTime;\n\tLARGE_INTEGER ChangeTime;\n\tULONG         FileAttributes;\n} FILE_BASIC_INFORMATION, *PFILE_BASIC_INFORMATION;"
+  },
+  {
+    "identifiers": ["PORT_SECTION_READ", "PPORT_SECTION_READ"],
+    "dependencies": [],
+    "definition": "typedef struct _PORT_SECTION_READ\n{\n\tULONG Length;\n\tULONG ViewSize;\n\tULONG ViewBase;\n} PORT_SECTION_READ, *PPORT_SECTION_READ;"
+  },
+  {
+    "identifiers": ["PORT_SECTION_WRITE", "PPORT_SECTION_WRITE"],
+    "dependencies": [],
+    "definition": "typedef struct _PORT_SECTION_WRITE\n{\n\tULONG  Length;\n\tHANDLE SectionHandle;\n\tULONG  SectionOffset;\n\tULONG  ViewSize;\n\tPVOID  ViewBase;\n\tPVOID  TargetViewBase;\n} PORT_SECTION_WRITE, *PPORT_SECTION_WRITE;"
+  },
+  {
+    "identifiers": ["TIMER_TYPE", "PTIMER_TYPE"],
+    "dependencies": [],
+    "definition": "typedef enum _TIMER_TYPE\n{\n\tNotificationTimer,\n\tSynchronizationTimer\n} TIMER_TYPE, *PTIMER_TYPE;"
+  },
+  {
+    "identifiers": ["BOOT_ENTRY", "PBOOT_ENTRY"],
+    "dependencies": [],
+    "definition": "typedef struct _BOOT_ENTRY\n{\n\tULONG Version;\n\tULONG Length;\n\tULONG Id;\n\tULONG Attributes;\n\tULONG FriendlyNameOffset;\n\tULONG BootFilePathOffset;\n\tULONG OsOptionsLength;\n\tUCHAR OsOptions[ANYSIZE_ARRAY];\n} BOOT_ENTRY, *PBOOT_ENTRY;"
+  },
+  {
+    "identifiers": ["EFI_DRIVER_ENTRY", "PEFI_DRIVER_ENTRY"],
+    "dependencies": [],
+    "definition": "typedef struct _EFI_DRIVER_ENTRY\n{\n\tULONG Version;\n\tULONG Length;\n\tULONG Id;\n\tULONG Attributes;\n\tULONG FriendlyNameOffset;\n\tULONG DriverFilePathOffset;\n} EFI_DRIVER_ENTRY, *PEFI_DRIVER_ENTRY;"
+  },
+  {
+    "identifiers": ["RTL_ATOM", "PRTL_ATOM"],
+    "dependencies": [],
+    "definition": "typedef USHORT RTL_ATOM, *PRTL_ATOM;"
+  },
+  {
+    "identifiers": ["TIMER_SET_INFORMATION_CLASS", "PTIMER_SET_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _TIMER_SET_INFORMATION_CLASS\n{\n\tTimerSetCoalescableTimer,\n\tMaxTimerInfoClass\n} TIMER_SET_INFORMATION_CLASS, *PTIMER_SET_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["FSINFOCLASS", "PFSINFOCLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _FSINFOCLASS\n{\n\tFileFsVolumeInformation = 1,\n\tFileFsLabelInformation = 2,\n\tFileFsSizeInformation = 3,\n\tFileFsDeviceInformation = 4,\n\tFileFsAttributeInformation = 5,\n\tFileFsControlInformation = 6,\n\tFileFsFullSizeInformation = 7,\n\tFileFsObjectIdInformation = 8,\n\tFileFsDriverPathInformation = 9,\n\tFileFsVolumeFlagsInformation = 10,\n\tFileFsSectorSizeInformation = 11,\n\tFileFsDataCopyInformation = 12,\n\tFileFsMetadataSizeInformation = 13,\n\tFileFsFullSizeInformationEx = 14,\n\tFileFsMaximumInformation = 15,\n} FSINFOCLASS, *PFSINFOCLASS;"
+  },
+  {
+    "identifiers": ["WAIT_TYPE", "PWAIT_TYPE"],
+    "dependencies": [],
+    "definition": "typedef enum _WAIT_TYPE\n{\n\tWaitAll = 0,\n\tWaitAny = 1\n} WAIT_TYPE, *PWAIT_TYPE;"
+  },
+  {
+    "identifiers": ["USER_STACK", "PUSER_STACK"],
+    "dependencies": [],
+    "definition": "typedef struct _USER_STACK\n{\n\tPVOID FixedStackBase;\n\tPVOID FixedStackLimit;\n\tPVOID ExpandableStackBase;\n\tPVOID ExpandableStackLimit;\n\tPVOID ExpandableStackBottom;\n} USER_STACK, *PUSER_STACK;"
+  },
+  {
+    "identifiers": ["SECTION_INFORMATION_CLASS", "PSECTION_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _SECTION_INFORMATION_CLASS\n{\n\tSectionBasicInformation,\n\tSectionImageInformation,\n} SECTION_INFORMATION_CLASS, *PSECTION_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["APPHELPCACHESERVICECLASS", "PAPPHELPCACHESERVICECLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _APPHELPCACHESERVICECLASS\n{\n\tApphelpCacheServiceLookup = 0,\n\tApphelpCacheServiceRemove = 1,\n\tApphelpCacheServiceUpdate = 2,\n\tApphelpCacheServiceFlush = 3,\n\tApphelpCacheServiceDump = 4,\n\tApphelpDBGReadRegistry = 0x100,\n\tApphelpDBGWriteRegistry = 0x101,\n} APPHELPCACHESERVICECLASS, *PAPPHELPCACHESERVICECLASS;"
+  },
+  {
+    "identifiers": ["TOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE", "PTOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE"],
+    "dependencies": [],
+    "definition": "typedef struct _TOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE\n{\n\tULONG64        Version;\n\tUNICODE_STRING Name;\n} TOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE, *PTOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE;"
+  },
+  {
+    "identifiers": ["TOKEN_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE", "PTOKEN_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE"],
+    "dependencies": [],
+    "definition": "typedef struct _TOKEN_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE\n{\n\tPVOID pValue;\n\tULONG ValueLength;\n} TOKEN_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE, *PTOKEN_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE;"
+  },
+  {
+    "identifiers": ["TOKEN_SECURITY_ATTRIBUTE_V1", "PTOKEN_SECURITY_ATTRIBUTE_V1"],
+    "dependencies": ["PTOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE", "PTOKEN_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE"],
+    "definition": "typedef struct _TOKEN_SECURITY_ATTRIBUTE_V1\n{\n\tUNICODE_STRING Name;\n\tUSHORT         ValueType;\n\tUSHORT         Reserved;\n\tULONG          Flags;\n\tULONG          ValueCount;\n\tunion\n\t{\n\t\tPLONG64                                      pInt64;\n\t\tPULONG64                                     pUint64;\n\t\tPUNICODE_STRING                              pString;\n\t\tPTOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE         pFqbn;\n\t\tPTOKEN_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE pOctetString;\n\t} Values;\n} TOKEN_SECURITY_ATTRIBUTE_V1, *PTOKEN_SECURITY_ATTRIBUTE_V1;"
+  },
+  {
+    "identifiers": ["TOKEN_SECURITY_ATTRIBUTES_INFORMATION", "PTOKEN_SECURITY_ATTRIBUTES_INFORMATION"],
+    "dependencies": ["PTOKEN_SECURITY_ATTRIBUTE_V1"],
+    "definition": "typedef struct _TOKEN_SECURITY_ATTRIBUTES_INFORMATION\n{\n\tUSHORT Version;\n\tUSHORT Reserved;\n\tULONG  AttributeCount;\n\tunion\n\t{\n\t\tPTOKEN_SECURITY_ATTRIBUTE_V1 pAttributeV1;\n\t} Attribute;\n} TOKEN_SECURITY_ATTRIBUTES_INFORMATION, *PTOKEN_SECURITY_ATTRIBUTES_INFORMATION;"
+  },
+  {
+    "identifiers": ["FILE_IO_COMPLETION_INFORMATION", "PFILE_IO_COMPLETION_INFORMATION"],
+    "dependencies": [],
+    "definition": "typedef struct _FILE_IO_COMPLETION_INFORMATION\n{\n\tPVOID           KeyContext;\n\tPVOID           ApcContext;\n\tIO_STATUS_BLOCK IoStatusBlock;\n} FILE_IO_COMPLETION_INFORMATION, *PFILE_IO_COMPLETION_INFORMATION;"
+  },
+  {
+    "identifiers": ["PT2_CANCEL_PARAMETERS"],
+    "dependencies": [],
+    "definition": "typedef PVOID PT2_CANCEL_PARAMETERS;"
+  },
+  {
+    "identifiers": ["THREADINFOCLASS", "PTHREADINFOCLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _THREADINFOCLASS\n{\n\tThreadBasicInformation,\n\tThreadTimes,\n\tThreadPriority,\n\tThreadBasePriority,\n\tThreadAffinityMask,\n\tThreadImpersonationToken,\n\tThreadDescriptorTableEntry,\n\tThreadEnableAlignmentFaultFixup,\n\tThreadEventPair_Reusable,\n\tThreadQuerySetWin32StartAddress,\n\tThreadZeroTlsCell,\n\tThreadPerformanceCount,\n\tThreadAmILastThread,\n\tThreadIdealProcessor,\n\tThreadPriorityBoost,\n\tThreadSetTlsArrayAddress,\n\tThreadIsIoPending,\n\tThreadHideFromDebugger,\n\tThreadBreakOnTermination,\n\tMaxThreadInfoClass\n} THREADINFOCLASS, *PTHREADINFOCLASS;"
+  },
+  {
+    "identifiers": ["OBJECT_INFORMATION_CLASS", "POBJECT_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _OBJECT_INFORMATION_CLASS\n{\n\tObjectBasicInformation,\n\tObjectNameInformation,\n\tObjectTypeInformation,\n\tObjectAllTypesInformation,\n\tObjectHandleInformation\n} OBJECT_INFORMATION_CLASS, *POBJECT_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["FILE_INFORMATION_CLASS", "PFILE_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _FILE_INFORMATION_CLASS\n{\n\tFileDirectoryInformation = 1,\n\tFileFullDirectoryInformation = 2,\n\tFileBothDirectoryInformation = 3,\n\tFileBasicInformation = 4,\n\tFileStandardInformation = 5,\n\tFileInternalInformation = 6,\n\tFileEaInformation = 7,\n\tFileAccessInformation = 8,\n\tFileNameInformation = 9,\n\tFileRenameInformation = 10,\n\tFileLinkInformation = 11,\n\tFileNamesInformation = 12,\n\tFileDispositionInformation = 13,\n\tFilePositionInformation = 14,\n\tFileFullEaInformation = 15,\n\tFileModeInformation = 16,\n\tFileAlignmentInformation = 17,\n\tFileAllInformation = 18,\n\tFileAllocationInformation = 19,\n\tFileEndOfFileInformation = 20,\n\tFileAlternateNameInformation = 21,\n\tFileStreamInformation = 22,\n\tFilePipeInformation = 23,\n\tFilePipeLocalInformation = 24,\n\tFilePipeRemoteInformation = 25,\n\tFileMailslotQueryInformation = 26,\n\tFileMailslotSetInformation = 27,\n\tFileCompressionInformation = 28,\n\tFileObjectIdInformation = 29,\n\tFileCompletionInformation = 30,\n\tFileMoveClusterInformation = 31,\n\tFileQuotaInformation = 32,\n\tFileReparsePointInformation = 33,\n\tFileNetworkOpenInformation = 34,\n\tFileAttributeTagInformation = 35,\n\tFileTrackingInformation = 36,\n\tFileIdBothDirectoryInformation = 37,\n\tFileIdFullDirectoryInformation = 38,\n\tFileValidDataLengthInformation = 39,\n\tFileShortNameInformation = 40,\n\tFileIoCompletionNotificationInformation = 41,\n\tFileIoStatusBlockRangeInformation = 42,\n\tFileIoPriorityHintInformation = 43,\n\tFileSfioReserveInformation = 44,\n\tFileSfioVolumeInformation = 45,\n\tFileHardLinkInformation = 46,\n\tFileProcessIdsUsingFileInformation = 47,\n\tFileNormalizedNameInformation = 48,\n\tFileNetworkPhysicalNameInformation = 49,\n\tFileIdGlobalTxDirectoryInformation = 50,\n\tFileIsRemoteDeviceInformation = 51,\n\tFileUnusedInformation = 52,\n\tFileNumaNodeInformation = 53,\n\tFileStandardLinkInformation = 54,\n\tFileRemoteProtocolInformation = 55,\n\tFileRenameInformationBypassAccessCheck = 56,\n\tFileLinkInformationBypassAccessCheck = 57,\n\tFileVolumeNameInformation = 58,\n\tFileIdInformation = 59,\n\tFileIdExtdDirectoryInformation = 60,\n\tFileReplaceCompletionInformation = 61,\n\tFileHardLinkFullIdInformation = 62,\n\tFileIdExtdBothDirectoryInformation = 63,\n\tFileDispositionInformationEx = 64,\n\tFileRenameInformationEx = 65,\n\tFileRenameInformationExBypassAccessCheck = 66,\n\tFileMaximumInformation = 67,\n} FILE_INFORMATION_CLASS, *PFILE_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["KEY_INFORMATION_CLASS", "PKEY_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _KEY_INFORMATION_CLASS\n{\n\tKeyBasicInformation = 0,\n\tKeyNodeInformation = 1,\n\tKeyFullInformation = 2,\n\tKeyNameInformation = 3,\n\tKeyCachedInformation = 4,\n\tKeyFlagsInformation = 5,\n\tKeyVirtualizationInformation = 6,\n\tKeyHandleTagsInformation = 7,\n\tMaxKeyInfoClass = 8\n} KEY_INFORMATION_CLASS, *PKEY_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["UNICODE_STRING", "PUNICODE_STRING"],
+    "dependencies": [],
+    "definition": "typedef struct _UNICODE_STRING\n{\n\tUSHORT Length;\n\tUSHORT MaximumLength;\n\tPWSTR  Buffer;\n} UNICODE_STRING, *PUNICODE_STRING;"
+  },
+  {
+    "identifiers": ["InitializeObjectAttributes"],
+    "dependencies": [],
+    "definition": "#ifndef InitializeObjectAttributes\n#define InitializeObjectAttributes( p, n, a, r, s ) { \\\n\t(p)->Length = sizeof( OBJECT_ATTRIBUTES );        \\\n\t(p)->RootDirectory = r;                           \\\n\t(p)->Attributes = a;                              \\\n\t(p)->ObjectName = n;                              \\\n\t(p)->SecurityDescriptor = s;                      \\\n\t(p)->SecurityQualityOfService = NULL;             \\\n}\n#endif"
+  },
+  {
+    "identifiers": ["OBJECT_ATTRIBUTES", "POBJECT_ATTRIBUTES"],
+    "dependencies": ["PUNICODE_STRING", "InitializeObjectAttributes"],
+    "definition": "typedef struct _OBJECT_ATTRIBUTES\n{\n\tULONG           Length;\n\tHANDLE          RootDirectory;\n\tPUNICODE_STRING ObjectName;\n\tULONG           Attributes;\n\tPVOID           SecurityDescriptor;\n\tPVOID           SecurityQualityOfService;\n} OBJECT_ATTRIBUTES, *POBJECT_ATTRIBUTES;"
+  },
+  {
+    "identifiers": ["TIMER_INFORMATION_CLASS", "PTIMER_INFORMATION_CLASS"],
+    "dependencies": [],
+    "definition": "typedef enum _TIMER_INFORMATION_CLASS\n{\n\tTimerBasicInformation\n} TIMER_INFORMATION_CLASS, *PTIMER_INFORMATION_CLASS;"
+  }
+]
