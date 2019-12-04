@@ -375,8 +375,8 @@ if __name__ == '__main__':
     elif not args.functions and not args.versions:
         print('ERROR:   --preset XOR --functions AND/OR --versions switches must be specified.\n')
         print('EXAMPLE: ./kernelwhispers.py --preset common --out-file syscalls_common')
-        print('EXAMPLE: ./kernelwhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory --out-file syscalls_common')
-        print('EXAMPLE: ./kernelwhispers.py --versions 7,8,10 --out-file syscalls_common')
+        print('EXAMPLE: ./kernelwhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory --out-file syscalls_memory')
+        print('EXAMPLE: ./kernelwhispers.py --versions 7,8,10 --out-file syscalls_78X')
 
     else:
         versions_map = {
