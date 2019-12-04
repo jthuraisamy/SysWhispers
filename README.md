@@ -22,6 +22,12 @@ optional arguments:
 ```
 
 ```
+PS C:\Projects\KernelWhispers> py .\kernelwhispers.py --preset common --out-file syscalls_common
+PS C:\Projects\KernelWhispers> py .\kernelwhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory --out-file syscalls_mem
+PS C:\Projects\KernelWhispers> py .\kernelwhispers.py --versions 7,8,10 --out-file syscalls_78X
+```
+
+```
 PS C:\Projects\KernelWhispers> py .\kernelwhispers.py --preset common --out-file syscom
                            _
   /,  _   ,_   ,__,   _   //     ,_ /_   .  ,   ,_    _   ,_   ,
