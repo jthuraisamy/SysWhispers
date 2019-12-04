@@ -31,7 +31,7 @@ optional arguments:
                         Output basename (w/o extension)
 ```
 
-```bash
+```powershell
 # Export just the common functions with compatibility for Windows 7, 8, and 10.
 py .\kernelwhispers.py --preset common -o syscalls_common
 
