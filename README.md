@@ -32,9 +32,9 @@ optional arguments:
 ```
 
 ```
-PS C:\Projects\KernelWhispers> py .\kernelwhispers.py --preset common --out-file syscalls_common
-PS C:\Projects\KernelWhispers> py .\kernelwhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory --out-file syscalls_mem
-PS C:\Projects\KernelWhispers> py .\kernelwhispers.py --versions 7,8,10 --out-file syscalls_78X
+py .\kernelwhispers.py --preset common -o syscalls_common
+py .\kernelwhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory -o syscalls_mem
+py .\kernelwhispers.py --versions 7,8,10 -o syscalls_78X
 ```
 
 ```
