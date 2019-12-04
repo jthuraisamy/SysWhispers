@@ -31,9 +31,14 @@ optional arguments:
                         Output basename (w/o extension)
 ```
 
-```
+```bash
+# Export just the common functions with compatibility for Windows 7, 8, and 10.
 py .\kernelwhispers.py --preset common -o syscalls_common
+
+# Export NtProtectVirtualMemory and NtWriteVirtualMemory with compatibility for all versions.
 py .\kernelwhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory -o syscalls_mem
+
+# Export all functions with compatibility for Windows 7, 8, and 10.
 py .\kernelwhispers.py --versions 7,8,10 -o syscalls_78X
 ```
 
