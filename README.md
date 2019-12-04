@@ -15,6 +15,9 @@ The main implementation difference between this and the [Dumpert](https://github
 ## Usage and Examples
 
 ```powershell
+# Export all functions with compatibility for all supported Windows versions (see output dir).
+py .\kernelwhispers.py --preset all -o syscalls_all
+
 # Export just the common functions with compatibility for Windows 7, 8, and 10.
 py .\kernelwhispers.py --preset common -o syscalls_common
 
