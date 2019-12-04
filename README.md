@@ -14,23 +14,6 @@ The main implementation difference between this and the [Dumpert](https://github
 
 ## Usage and Examples
 
-```
-PS C:\Projects\KernelWhispers> py .\kernelwhispers.py --help
-
-usage: kernelwhispers.py [-h] [-p PRESET] [-f FUNCTIONS] [-v VERSIONS] -o OUT_FILE
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -p PRESET, --preset PRESET
-                        Preset ("all", "common")
-  -f FUNCTIONS, --functions FUNCTIONS
-                        Comma-separated functions
-  -v VERSIONS, --versions VERSIONS
-                        Comma-separated versions (XP, Vista, 7, 8, 10)
-  -o OUT_FILE, --out-file OUT_FILE
-                        Output basename (w/o extension)
-```
-
 ```powershell
 # Export just the common functions with compatibility for Windows 7, 8, and 10.
 py .\kernelwhispers.py --preset common -o syscalls_common
