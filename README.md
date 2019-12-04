@@ -52,7 +52,7 @@ Complete! Files written to:
         syscom.h
 ```
 
-## Common/Default Functions
+## Common Functions
 
 Using the `--preset common` switch will create a header/ASM pair with the following functions which may be used in potentially malicious contexts:
 
