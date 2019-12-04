@@ -7,7 +7,7 @@ Generate header/ASM files for direct system calls.
 ```
 PS C:\Projects\KernelWhispers> py .\kernelwhispers.py --help
 
-usage: main.py [-h] [-p PRESET] [-f FUNCTIONS] [-v VERSIONS] -o OUT_FILE
+usage: kernelwhispers.py [-h] [-p PRESET] [-f FUNCTIONS] [-v VERSIONS] -o OUT_FILE
 
 optional arguments:
   -h, --help            show this help message and exit
