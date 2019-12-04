@@ -44,6 +44,38 @@ Complete! Files written to:
         syscom.h
 ```
 
+## Common/Default Functions
+
+- NtCreateProcess (CreateProcess)
+- NtCreateThreadEx (CreateRemoteThread)
+- NtOpenProcess (OpenProcess)
+- NtOpenThread (OpenThread)
+- NtSuspendProcess
+- NtSuspendThread (SuspendThread)
+- NtResumeProcess
+- NtResumeThread (ResumeThread)
+- NtGetContextThread (GetThreadContext)
+- NtSetContextThread (SetThreadContext)
+- NtClose (CloseHandle)
+- NtReadVirtualMemory (ReadProcessMemory)
+- NtWriteVirtualMemory (WriteProcessMemory)
+- NtAllocateVirtualMemory (VirtualAllocEx)
+- NtProtectVirtualMemory (VirtualProtectEx)
+- NtFreeVirtualMemory (VirtualFreeEx)
+- NtQuerySystemInformation (GetSystemInfo)
+- NtQueryDirectoryFile
+- NtQueryInformationFile
+- NtQueryInformationProcess
+- NtQueryInformationThread
+- NtCreateSection (CreateFileMapping)
+- NtOpenSection
+- NtMapViewOfSection
+- NtUnmapViewOfSection
+- NtAdjustPrivilegesToken (AdjustTokenPrivileges)
+- NtDeviceIoControlFile (DeviceIoControl)
+- NtQueueApcThread (QueueUserAPC)
+- NtWaitForMultipleObjects (WaitForMultipleObjectsEx)
+
 ## Credits
 
 TBD
