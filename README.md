@@ -1,6 +1,8 @@
 # KernelWhispers
 
-Generate header/ASM files to make direct system calls for evasion purposes.
+KernelWhispers generates header/ASM files to let implants make direct system calls for evasion purposes.
+
+All core syscalls are supported from Windows XP to 10. Example generated files available in `output` folder.  
 
 ## Introduction
 
