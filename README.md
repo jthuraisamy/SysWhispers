@@ -1,6 +1,6 @@
 # SysWhispers
 
-SysWhispers helps with evasion by generating header/ASM files to let them make direct system calls.
+SysWhispers helps implants with evasion by generating header/ASM files to let them make direct system calls.
 
 All core syscalls are supported from Windows XP to 10. Example generated files available in `output` folder.  
 
