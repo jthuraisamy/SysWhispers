@@ -1,6 +1,6 @@
-# KernelWhispers
+# SysWhispers
 
-KernelWhispers generates header/ASM files to let implants make direct system calls for evasion purposes.
+SysWhispers helps with evasion by generating header/ASM files to let them make direct system calls.
 
 All core syscalls are supported from Windows XP to 10. Example generated files available in `output` folder.  
 
@@ -8,7 +8,7 @@ All core syscalls are supported from Windows XP to 10. Example generated files a
 
 Various security products place hooks in user-mode APIs which allow them to redirect execution flow to their engines and detect for suspicious behaviour. The functions in `ntdll.dll` that make the syscalls consist of just a few assembly instructions, so re-implementing them in your own implant can bypass the triggering of those security product hooks. This technique was popularized by [@Cn33liz](https://twitter.com/Cneelis) and his [blog post](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/) has more technical details worth reading.
 
-KernelWhispers provides red teamers the ability to generate header/ASM pairs for any system call in the core kernel image (`ntoskrnl.exe`) across any Windows version starting from XP. The headers will also include the necessary type definitions.
+SysWhispers provides red teamers the ability to generate header/ASM pairs for any system call in the core kernel image (`ntoskrnl.exe`) across any Windows version starting from XP. The headers will also include the necessary type definitions.
 
 The main implementation difference between this and the [Dumpert](https://github.com/outflanknl/Dumpert) POC is that this doesn't call `RtlGetVersion` to query the OS version, but instead does this in the assembly by querying the PEB directly. The benefit is being able to call one function that supports multiple Windows versions instead of calling multiple functions each supporting one version.
 
@@ -16,27 +16,27 @@ The main implementation difference between this and the [Dumpert](https://github
 
 ```powershell
 # Export all functions with compatibility for all supported Windows versions (see output dir).
-py .\kernelwhispers.py --preset all -o syscalls_all
+py .\syswhispers.py --preset all -o syscalls_all
 
 # Export just the common functions with compatibility for Windows 7, 8, and 10.
-py .\kernelwhispers.py --preset common -o syscalls_common
+py .\syswhispers.py --preset common -o syscalls_common
 
 # Export NtProtectVirtualMemory and NtWriteVirtualMemory with compatibility for all versions.
-py .\kernelwhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory -o syscalls_mem
+py .\syswhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory -o syscalls_mem
 
 # Export all functions with compatibility for Windows 7, 8, and 10.
-py .\kernelwhispers.py --versions 7,8,10 -o syscalls_78X
+py .\syswhispers.py --versions 7,8,10 -o syscalls_78X
 ```
 
 ```
-PS C:\Projects\KernelWhispers> py .\kernelwhispers.py --preset common --out-file syscom
-                           _
-  /,  _   ,_   ,__,   _   //     ,_ /_   .  ,   ,_    _   ,_   ,
-_/(__(/__/ (__/ / (__(/__(/__/_/_/_/ (__/__/_)__/_)__(/__/ (__/_)_
-                                               /
-                                              /  @Jackson_T, 2019
+PS C:\Projects\SysWhispers> py .\syswhispers.py --preset common --out-file syscom
 
-KernelWhispers: Generate header/ASM files for direct system calls.
+  ,         ,       ,_ /_   .  ,   ,_    _   ,_   ,
+_/_)__(_/__/_)__/_/_/ / (__/__/_)__/_)__(/__/ (__/_)__
+      _/_                         /
+     (/                          /   @Jackson_T, 2019
+
+SysWhispers: Why call the kernel when you can whisper?
 
 Common functions selected.
 

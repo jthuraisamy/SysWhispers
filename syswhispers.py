@@ -8,7 +8,7 @@ import operator
 import os
 
 
-class KernelWhispers(object):
+class SysWhispers(object):
 
     def __init__(self):
         self.typedefs: list = json.load(open('./data/typedefs.json'))
@@ -311,12 +311,12 @@ class KernelWhispers(object):
 if __name__ == '__main__':
 
     print(
-        "                           _                                      \n"
-        "  /,  _   ,_   ,__,   _   //     ,_ /_   .  ,   ,_    _   ,_   ,  \n"
-        "_/(__(/__/ (__/ / (__(/__(/__/_/_/_/ (__/__/_)__/_)__(/__/ (__/_)_\n"
-        "                                               /                  \n"
-        "                                              /  @Jackson_T, 2019 \n\n"
-        "KernelWhispers: Generate header/ASM files for direct system calls.\n"
+        "                                                      \n"
+        "  ,         ,       ,_ /_   .  ,   ,_    _   ,_   ,   \n"
+        "_/_)__(_/__/_)__/_/_/ / (__/__/_)__/_)__(/__/ (__/_)__\n"
+        "      _/_                         /                   \n"
+        "     (/                          /   @Jackson_T, 2019 \n\n"
+        "SysWhispers: Why call the kernel when you can whisper?\n"
     )
 
     parser = argparse.ArgumentParser()
@@ -326,15 +326,15 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--out-file', help='Output basename (w/o extension)', required=True)
     args = parser.parse_args()
 
-    kw = KernelWhispers()
+    sw = SysWhispers()
 
     if args.preset == 'all':
         print('All functions selected.\n')
-        kw.generate(basename=args.out_file)
+        sw.generate(basename=args.out_file)
 
     elif args.preset == 'common':
         print('Common functions selected.\n')
-        kw.generate(
+        sw.generate(
             ['NtCreateProcess',
              'NtCreateThreadEx',
              'NtOpenProcess',
@@ -374,9 +374,9 @@ if __name__ == '__main__':
 
     elif not args.functions and not args.versions:
         print('ERROR:   --preset XOR --functions AND/OR --versions switches must be specified.\n')
-        print('EXAMPLE: ./kernelwhispers.py --preset common --out-file syscalls_common')
-        print('EXAMPLE: ./kernelwhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory --out-file syscalls_memory')
-        print('EXAMPLE: ./kernelwhispers.py --versions 7,8,10 --out-file syscalls_78X')
+        print('EXAMPLE: ./syswhispers.py --preset common --out-file syscalls_common')
+        print('EXAMPLE: ./syswhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory --out-file syscalls_mem')
+        print('EXAMPLE: ./syswhispers.py --versions 7,8,10 --out-file syscalls_78X')
 
     else:
         versions_map = {
@@ -389,4 +389,4 @@ if __name__ == '__main__':
 
         functions = args.functions.split(',') if args.functions else []
         versions = [versions_map[v] for v in args.versions.lower().split(',') if v in versions_map]
-        kw.generate(functions, versions, args.out_file)
+        sw.generate(functions, versions, args.out_file)
