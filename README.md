@@ -47,7 +47,7 @@ Complete! Files written to:
 
 ## Common Functions
 
-Using the `--preset common` switch will create a header/ASM pair with the following functions which may be used in potentially malicious contexts:
+Using the `--preset common` switch will create a header/ASM pair with the following functions:
 
 - NtCreateProcess (CreateProcess)
 - NtCreateThreadEx (CreateRemoteThread)
