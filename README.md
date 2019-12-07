@@ -107,7 +107,7 @@ This script was developed by [@Jackson_T](https://twitter.com/Jackson_T) but bui
 - [@0x00dtm](https://twitter.com/0x00dtm): [Userland API Monitoring and Code Injection Detection](https://0x00sec.org/t/userland-api-monitoring-and-code-injection-detection/5565)
 - [@0x00dtm](https://twitter.com/0x00dtm): [Defeating Userland Hooks (ft. Bitdefender)](https://0x00sec.org/t/defeating-userland-hooks-ft-bitdefender/12496) ([Code](https://github.com/NtRaiseHardError/Antimalware-Research/tree/master/Generic/Userland%20Hooking/AntiHook))
 - [@Cn33liz](https://twitter.com/Cneelis): [Combining Direct System Calls and sRDI to bypass AV/EDR](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/) ([Code](https://github.com/outflanknl/Dumpert))
-- [@SpecialHoang](https://twitter.com/SpecialHoang): [Bypass EDR’s memory protection, introduction to hooking](https://medium.com/@fsx30/bypass-edrs-memory-protection-introduction-to-hooking-2efb21acffd6) ([Code](https://github.com/hoangprod/AndrewSpecial/tree/master)
+- [@SpecialHoang](https://twitter.com/SpecialHoang): [Bypass EDR’s memory protection, introduction to hooking](https://medium.com/@fsx30/bypass-edrs-memory-protection-introduction-to-hooking-2efb21acffd6) ([Code](https://github.com/hoangprod/AndrewSpecial/tree/master))
 - [@xpn](https://twitter.com/_xpn_) and [@domchell](https://twitter.com/domchell): [Silencing Cylance: A Case Study in Modern EDRs](https://www.mdsec.co.uk/2019/03/silencing-cylance-a-case-study-in-modern-edrs/)
 
 ## Licence
