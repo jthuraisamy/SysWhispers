@@ -49,6 +49,9 @@ Complete! Files written to:
 
 Using the `--preset common` switch will create a header/ASM pair with the following functions:
 
+<details>
+  <summary>Click to expand function list.</summary>
+
 - NtCreateProcess (CreateProcess)
 - NtCreateThreadEx (CreateRemoteThread)
 - NtOpenProcess (OpenProcess)
@@ -78,6 +81,8 @@ Using the `--preset common` switch will create a header/ASM pair with the follow
 - NtDeviceIoControlFile (DeviceIoControl)
 - NtQueueApcThread (QueueUserAPC)
 - NtWaitForMultipleObjects (WaitForMultipleObjectsEx)
+
+</details>
 
 ## Importing into Visual Studio
 
