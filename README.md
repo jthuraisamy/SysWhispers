@@ -14,6 +14,8 @@ The main implementation difference between this and the [Dumpert](https://github
 
 ## Usage and Examples
 
+Example command lines to generate output:
+
 ```powershell
 # Export all functions with compatibility for all supported Windows versions (see output dir).
 py .\syswhispers.py --preset all -o syscalls_all
@@ -27,6 +29,8 @@ py .\syswhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory -o s
 # Export all functions with compatibility for Windows 7, 8, and 10.
 py .\syswhispers.py --versions 7,8,10 -o syscalls_78X
 ```
+
+Example output of the script:
 
 ```
 PS C:\Projects\SysWhispers> py .\syswhispers.py --preset common --out-file syscom
@@ -43,6 +47,21 @@ Common functions selected.
 Complete! Files written to:
         syscom.asm
         syscom.h
+```
+
+Before-and-after example of classic `CreateRemoteThread` injection:
+
+```c
+#include <Windows.h>
+
+void InjectDll(const HANDLE hProcess, const char* dllPath)
+{
+	LPVOID lpBaseAddress = ::VirtualAllocEx(hProcess, NULL, strlen(dllPath), MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	LPVOID lpStartAddress = ::GetProcAddress(::GetModuleHandle(L"kernel32.dll"), "LoadLibraryA");
+	
+	::WriteProcessMemory(hProcess, lpBaseAddress, dllPath, strlen(dllPath), nullptr);
+	::CreateRemoteThread(hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE)lpStartAddress, lpBaseAddress, 0, nullptr);
+}
 ```
 
 ## Common Functions
@@ -86,7 +105,10 @@ Using the `--preset common` switch will create a header/ASM pair with the follow
 
 ## Importing into Visual Studio
 
-TBD.
+1. Copy the generated H/ASM files into the project folder.
+2. In Visual Studio, go to *Project* -> *Build Customizations...* and enable MASM.
+3. In the *Solution Explorer*, add the .h and .asm files to the project as header and source files, respectively.
+4. Go to the properties of the ASM file, and set the *Item Type* to *Microsoft Macro Assembler*.
 
 ## Caveats and Limitations
 
