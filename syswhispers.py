@@ -388,5 +388,5 @@ if __name__ == '__main__':
         }
 
         functions = args.functions.split(',') if args.functions else []
-        versions = [versions_map[v] for v in args.versions.lower().split(',') if v in versions_map]
+        versions = [versions_map[v] for v in args.versions.lower().split(',') if v in versions_map] if args.versions else []
         sw.generate(functions, versions, args.out_file)
