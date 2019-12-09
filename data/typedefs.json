@@ -5,18 +5,13 @@
     "definition": "typedef enum _MEM_EXTENDED_PARAMETER_TYPE\n{\n\tMemExtendedParameterInvalidType,\n\tMemExtendedParameterAddressRequirements,\n\tMemExtendedParameterNumaNode,\n\tMemExtendedParameterPartitionHandle,\n\tMemExtendedParameterUserPhysicalHandle,\n\tMemExtendedParameterAttributeFlags,\n\tMemExtendedParameterMax\n} MEM_EXTENDED_PARAMETER_TYPE, *PMEM_EXTENDED_PARAMETER_TYPE;"
   },
   {
-    "identifiers": ["MEM_EXTENDED_PARAMETER", "PMEM_EXTENDED_PARAMETER"],
-    "dependencies": [],
-    "definition": "typedef struct _MEM_EXTENDED_PARAMETER\n{\n\tstruct {\n\t\tULONG64 Type;\n\t\tULONG64 Reserved;\n\t} DUMMYSTRUCTNAME;\n\tunion {\n\t\tULONG64 ULong64;\n\t\tPVOID   Pointer;\n\t\tSIZE_T  Size;\n\t\tHANDLE  Handle;\n\t\tULONG   ULong;\n\t} DUMMYUNIONNAME;\n} MEM_EXTENDED_PARAMETER, *PMEM_EXTENDED_PARAMETER;"
-  },
-  {
     "identifiers": ["IO_STATUS_BLOCK", "PIO_STATUS_BLOCK"],
     "dependencies": [],
     "definition": "typedef struct _IO_STATUS_BLOCK\n{\n\tunion\n\t{\n\t\tNTSTATUS Status;\n\t\tVOID*    Pointer;\n\t};\n\tULONG_PTR Information;\n} IO_STATUS_BLOCK, *PIO_STATUS_BLOCK;"
   },
   {
     "identifiers": ["KEY_VALUE_ENTRY", "PKEY_VALUE_ENTRY"],
-    "dependencies": [],
+    "dependencies": ["PUNICODE_STRING"],
     "definition": "typedef struct _KEY_VALUE_ENTRY\n{\n\tPUNICODE_STRING ValueName;\n\tULONG           DataLength;\n\tULONG           DataOffset;\n\tULONG           Type;\n} KEY_VALUE_ENTRY, *PKEY_VALUE_ENTRY;"
   },
   {
@@ -416,7 +411,7 @@
   },
   {
     "identifiers": ["TOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE", "PTOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE"],
-    "dependencies": [],
+    "dependencies": ["UNICODE_STRING"],
     "definition": "typedef struct _TOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE\n{\n\tULONG64        Version;\n\tUNICODE_STRING Name;\n} TOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE, *PTOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE;"
   },
   {
@@ -426,7 +421,7 @@
   },
   {
     "identifiers": ["TOKEN_SECURITY_ATTRIBUTE_V1", "PTOKEN_SECURITY_ATTRIBUTE_V1"],
-    "dependencies": ["PTOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE", "PTOKEN_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE"],
+    "dependencies": ["PUNICODE_STRING", "PTOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE", "PTOKEN_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE"],
     "definition": "typedef struct _TOKEN_SECURITY_ATTRIBUTE_V1\n{\n\tUNICODE_STRING Name;\n\tUSHORT         ValueType;\n\tUSHORT         Reserved;\n\tULONG          Flags;\n\tULONG          ValueCount;\n\tunion\n\t{\n\t\tPLONG64                                      pInt64;\n\t\tPULONG64                                     pUint64;\n\t\tPUNICODE_STRING                              pString;\n\t\tPTOKEN_SECURITY_ATTRIBUTE_FQBN_VALUE         pFqbn;\n\t\tPTOKEN_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE pOctetString;\n\t} Values;\n} TOKEN_SECURITY_ATTRIBUTE_V1, *PTOKEN_SECURITY_ATTRIBUTE_V1;"
   },
   {

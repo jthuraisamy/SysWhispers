@@ -6,6 +6,7 @@ import jmespath
 import functools
 import operator
 import os
+from pprint import pprint
 
 
 class SysWhispers(object):
@@ -147,6 +148,9 @@ class SysWhispers(object):
         return function_compatibility
 
     def _get_typedefs(self, function_names: list) -> list:
+        def _names_to_ids(names: list) -> list:
+            return [next(i for i, t in enumerate(self.typedefs) if n in t['identifiers']) for n in names]
+
         # Determine typedefs to use.
         used_typedefs = []
         for function_name in function_names:
@@ -156,22 +160,30 @@ class SysWhispers(object):
                         used_typedefs.append(param['type'])
 
         # Resolve typedef dependencies.
+        i = 0
+        typedef_layers = {i: _names_to_ids(used_typedefs)}
         while True:
-            dependent_typedefs = list((list(filter(lambda t: i in t['identifiers'], self.typedefs))[0]['dependencies'] for i in used_typedefs))
-            if dependent_typedefs:
-                remaining_dependencies = [d for d in functools.reduce(operator.concat, dependent_typedefs) if d not in used_typedefs]
-                if remaining_dependencies:
-                    for remaining_dependency in remaining_dependencies:
-                        used_typedefs.insert(0, remaining_dependency)
-                else:
-                    break
+            # Identify dependencies of current layer.
+            more_dependencies = []
+            for typedef_id in typedef_layers[i]:
+                more_dependencies += self.typedefs[typedef_id]['dependencies']
+            more_dependencies = list(set(more_dependencies))  # Remove duplicates.
+
+            if more_dependencies:
+                # Create new layer.
+                i += 1
+                typedef_layers[i] = _names_to_ids(more_dependencies)
             else:
+                # Remove duplicates between layers.
+                for k in range(len(typedef_layers) - 1):
+                    typedef_layers[k] = set(typedef_layers[k]) - set(typedef_layers[k + 1])
                 break
 
         # Get code for each typedef.
         typedef_code = []
-        for typedef_id in used_typedefs:
-            typedef_code.append(list(filter(lambda t: typedef_id in t['identifiers'], self.typedefs))[0]['definition'])
+        for i in range(max(typedef_layers.keys()), -1, -1):
+            for j in typedef_layers[i]:
+                typedef_code.append(self.typedefs[j]['definition'])
         return typedef_code
 
     def _get_function_prototype(self, function_name: str) -> str:
@@ -288,7 +300,8 @@ class SysWhispers(object):
         for version in compatible_versions:
             for build in self.version_syscall_map(function_name)[version]:
                 if isinstance(jmespath.search(build['jmespath'], self.syscall_numbers), int):
-                    code += f'{function_name}_SystemCall_{build["version"].replace(".", "_")}:'.ljust(len(function_name) + 31)
+                    code += f'{function_name}_SystemCall_{build["version"].replace(".", "_")}:'.ljust(
+                        len(function_name) + 31)
                     code += f'; {build["description"]}\n'
                     code += '\tmov eax, %04xh\n' % jmespath.search(build['jmespath'], self.syscall_numbers)
                     code += f'\tjmp {function_name}_Epilogue\n'
@@ -375,7 +388,8 @@ if __name__ == '__main__':
     elif not args.functions and not args.versions:
         print('ERROR:   --preset XOR --functions AND/OR --versions switches must be specified.\n')
         print('EXAMPLE: ./syswhispers.py --preset common --out-file syscalls_common')
-        print('EXAMPLE: ./syswhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory --out-file syscalls_mem')
+        print(
+            'EXAMPLE: ./syswhispers.py --functions NtProtectVirtualMemory,NtWriteVirtualMemory --out-file syscalls_mem')
         print('EXAMPLE: ./syswhispers.py --versions 7,8,10 --out-file syscalls_78X')
 
     else:
@@ -388,5 +402,6 @@ if __name__ == '__main__':
         }
 
         functions = args.functions.split(',') if args.functions else []
-        versions = [versions_map[v] for v in args.versions.lower().split(',') if v in versions_map] if args.versions else []
+        versions = [versions_map[v] for v in args.versions.lower().split(',') if
+                    v in versions_map] if args.versions else []
         sw.generate(functions, versions, args.out_file)
