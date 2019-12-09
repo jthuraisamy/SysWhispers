@@ -51,6 +51,10 @@ Complete! Files written to:
 
 ### Before-and-After Example of Classic `CreateRemoteThread` Injection
 
+```
+PS C:\Projects\SysWhispers> py .\syswhispers.py -f NtAllocateVirtualMemory,NtWriteVirtualMemory,NtCreateThreadEx --o syscalls
+```
+
 ```c
 #include <Windows.h>
 
@@ -126,11 +130,19 @@ Using the `--preset common` switch will create a header/ASM pair with the follow
 2. In Visual Studio, go to *Project* -> *Build Customizations...* and enable MASM.
 3. In the *Solution Explorer*, add the .h and .asm files to the project as header and source files, respectively.
 4. Go to the properties of the ASM file, and set the *Item Type* to *Microsoft Macro Assembler*.
+5. Ensure that the project platform is set to x64. 32-bit projects are not supported at this time.
 
 ## Caveats and Limitations
 
 - Only 64-bit Windows is supported at this time.
 - System calls from the graphical subsystem (`win32k.sys`) are not supported.
+- Tested on Visual Studio 2019 (v142).
+
+## Troubleshooting
+
+- Type redefinitions errors: a project may not compile if typedefs in `syscalls.h` have been redefined.
+  - Ensure that only required functions are included (i.e. `--preset all` is rarely necessary).
+  - If a typedef is already defined in another used header, then it could be removed from `syscalls.h`
 
 ## Credits
 
