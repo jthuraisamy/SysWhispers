@@ -51,6 +51,10 @@ Complete! Files written to:
 
 ### Before-and-After Example of Classic `CreateRemoteThread` Injection
 
+```
+PS C:\Projects\SysWhispers> py .\syswhispers.py -f NtAllocateVirtualMemory,NtWriteVirtualMemory,NtCreateThreadEx --o syscalls
+```
+
 ```c
 #include <Windows.h>
 
