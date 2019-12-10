@@ -17,7 +17,8 @@ The main implementation difference between this and the [Dumpert](https://github
 ```bash
 > git clone https://github.com/jthuraisamy/SysWhispers.git
 > cd SysWhispers
-> pip3 install -r requirements.txt
+> pip3 install -r .\requirements.txt
+> py .\syswhispers.py --help
 ```
 
 ## Usage and Examples
@@ -25,7 +26,7 @@ The main implementation difference between this and the [Dumpert](https://github
 ### Command Lines
 
 ```powershell
-# Export all functions with compatibility for all supported Windows versions (see output dir).
+# Export all functions with compatibility for all supported Windows versions (see example-output/).
 py .\syswhispers.py --preset all -o syscalls_all
 
 # Export just the common functions with compatibility for Windows 7, 8, and 10.
@@ -57,7 +58,7 @@ Complete! Files written to:
         syscom.h
 ```
 
-### Before-and-After Example of Classic `CreateRemoteThread` Injection
+### Before-and-After Example of Classic `CreateRemoteThread` DLL Injection
 
 ```
 py .\syswhispers.py -f NtAllocateVirtualMemory,NtWriteVirtualMemory,NtCreateThreadEx -o syscalls
@@ -148,9 +149,9 @@ Using the `--preset common` switch will create a header/ASM pair with the follow
 
 ## Troubleshooting
 
-- Type redefinitions errors: a project may not compile if typedefs in `syscalls.h` have been redefined.
+- Type redefinitions errors: a project may not compile if typedefs in `syscalls.h` have already been defined.
   - Ensure that only required functions are included (i.e. `--preset all` is rarely necessary).
-  - If a typedef is already defined in another used header, then it could be removed from `syscalls.h`
+  - If a typedef is already defined in another used header, then it could be removed from `syscalls.h`.
 
 ## Credits
 
@@ -160,6 +161,8 @@ This script was developed by [@Jackson_T](https://twitter.com/Jackson_T) but bui
 - [@FoxHex0ne](https://twitter.com/FoxHex0ne) for cataloguing many function prototypes and typedefs in a machine-readable format.
 - [@PetrBenes](https://twitter.com/PetrBenes), [NTInternals.net team](https://undocumented.ntinternals.net/), and [MSDN](https://docs.microsoft.com/en-us/windows/) for additional prototypes and typedefs.
 - [@Cn33liz](https://twitter.com/Cneelis) for the initial [Dumpert](https://github.com/outflanknl/Dumpert) POC implementation.
+
+Special thanks to [@Dcept905](https://twitter.com/Dcept905) for testing and suggestions.
 
 ## Related Articles and Projects
 
