@@ -12,6 +12,14 @@ SysWhispers provides red teamers the ability to generate header/ASM pairs for an
 
 The main implementation difference between this and the [Dumpert](https://github.com/outflanknl/Dumpert) POC is that this doesn't call `RtlGetVersion` to query the OS version, but instead does this in the assembly by querying the PEB directly. The benefit is being able to call one function that supports multiple Windows versions instead of calling multiple functions each supporting one version.
 
+## Installation
+
+```bash
+> git clone https://github.com/jthuraisamy/SysWhispers.git
+> cd SysWhispers
+> pip3 install -r requirements.txt
+```
+
 ## Usage and Examples
 
 ### Command Lines
