@@ -136,7 +136,7 @@ Using the `--preset common` switch will create a header/ASM pair with the follow
 ## Importing into Visual Studio
 
 1. Copy the generated H/ASM files into the project folder.
-2. In Visual Studio, go to *Project* -> *Build Customizations...* and enable MASM.
+2. In Visual Studio, go to *Project* → *Build Customizations...* and enable MASM.
 3. In the *Solution Explorer*, add the .h and .asm files to the project as header and source files, respectively.
 4. Go to the properties of the ASM file, and set the *Item Type* to *Microsoft Macro Assembler*.
 5. Ensure that the project platform is set to x64. 32-bit projects are not supported at this time.
@@ -145,10 +145,12 @@ Using the `--preset common` switch will create a header/ASM pair with the follow
 
 - Only 64-bit Windows is supported at this time.
 - System calls from the graphical subsystem (`win32k.sys`) are not supported.
-- Tested on Visual Studio 2019 (v142).
+- Tested on Visual Studio 2019 (v142) with Windows 10 SDK.
 
 ## Troubleshooting
 
+- `ModuleNotFoundError` in Python script.
+  - Ensure that the required modules are installed with `pip3 install -r requirements.txt`.
 - Type redefinitions errors: a project may not compile if typedefs in `syscalls.h` have already been defined.
   - Ensure that only required functions are included (i.e. `--preset all` is rarely necessary).
   - If a typedef is already defined in another used header, then it could be removed from `syscalls.h`.
@@ -171,6 +173,7 @@ Special thanks to [@Dcept905](https://twitter.com/Dcept905) for testing and sugg
 - [@Cn33liz](https://twitter.com/Cneelis): [Combining Direct System Calls and sRDI to bypass AV/EDR](https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/) ([Code](https://github.com/outflanknl/Dumpert))
 - [@SpecialHoang](https://twitter.com/SpecialHoang): [Bypass EDR’s memory protection, introduction to hooking](https://medium.com/@fsx30/bypass-edrs-memory-protection-introduction-to-hooking-2efb21acffd6) ([Code](https://github.com/hoangprod/AndrewSpecial/tree/master))
 - [@xpn](https://twitter.com/_xpn_) and [@domchell](https://twitter.com/domchell): [Silencing Cylance: A Case Study in Modern EDRs](https://www.mdsec.co.uk/2019/03/silencing-cylance-a-case-study-in-modern-edrs/)
+- [@mrjefftang](https://twitter.com/mrjefftang): [Universal Unhooking: Blinding Security Software](https://threatvector.cylance.com/en_us/home/universal-unhooking-blinding-security-software.html) ([Code](https://github.com/CylanceVulnResearch/ReflectiveDLLRefresher))
 
 ## Licence
 
