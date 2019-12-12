@@ -174,6 +174,7 @@ Special thanks to [@Dcept905](https://twitter.com/Dcept905) for testing and sugg
 - [@SpecialHoang](https://twitter.com/SpecialHoang): [Bypass EDR’s memory protection, introduction to hooking](https://medium.com/@fsx30/bypass-edrs-memory-protection-introduction-to-hooking-2efb21acffd6) ([Code](https://github.com/hoangprod/AndrewSpecial/tree/master))
 - [@xpn](https://twitter.com/_xpn_) and [@domchell](https://twitter.com/domchell): [Silencing Cylance: A Case Study in Modern EDRs](https://www.mdsec.co.uk/2019/03/silencing-cylance-a-case-study-in-modern-edrs/)
 - [@mrjefftang](https://twitter.com/mrjefftang): [Universal Unhooking: Blinding Security Software](https://threatvector.cylance.com/en_us/home/universal-unhooking-blinding-security-software.html) ([Code](https://github.com/CylanceVulnResearch/ReflectiveDLLRefresher))
+- [@spotheplanet](https://twitter.com/spotheplanet): [Full DLL Unhooking with C++](https://ired.team/offensive-security/defense-evasion/how-to-unhook-a-dll-using-c++)
 
 ## Licence
 
