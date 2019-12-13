@@ -177,6 +177,7 @@ Special thanks to [@Dcept905](https://twitter.com/Dcept905) for testing and sugg
 - [@spotheplanet](https://twitter.com/spotheplanet): [Full DLL Unhooking with C++](https://ired.team/offensive-security/defense-evasion/how-to-unhook-a-dll-using-c++)
 - [@hasherezade](https://twitter.com/hasherezade): [Floki Bot and the stealthy dropper](https://blog.malwarebytes.com/threat-analysis/2016/11/floki-bot-and-the-stealthy-dropper/)
 - [@hodg87](https://twitter.com/hodg87): [Latest Trickbot Variant has New Tricks Up Its Sleeve](https://www.cyberbit.com/blog/endpoint-security/latest-trickbot-variant-has-new-tricks-up-its-sleeve/)
+- [@hodg87](https://twitter.com/hodg87): [Malware Mitigation when Direct System Calls are Used](https://www.cyberbit.com/blog/endpoint-security/malware-mitigation-when-direct-system-calls-are-used/)
 
 ## Licence
 
