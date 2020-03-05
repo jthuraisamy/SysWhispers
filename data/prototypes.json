@@ -5700,7 +5700,7 @@
     "params": [
       {
         "name": "Routine",
-        "type": "PENCLAVE_ROUTINE",
+        "type": "PVOID",
         "in": true,
         "out": false,
         "optional": false
