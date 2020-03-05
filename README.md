@@ -141,6 +141,19 @@ Using the `--preset common` switch will create a header/ASM pair with the follow
 4. Go to the properties of the ASM file, and set the *Item Type* to *Microsoft Macro Assembler*.
 5. Ensure that the project platform is set to x64. 32-bit projects are not supported at this time.
 
+## Compiling with MinGW
+
+1. Copy the generated H/ASM files into your working folder.
+2. Generate the object file with the masm compiler: `"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\amd64\ml64.exe" /Fo syscalls.lib /c syscalls.asm`
+3. Write your payload.c file importing the syscalls header with the directive `#include "syscalls.h"`
+4. Compile the payload.c file and specify to link the "syscalls.lib" object file: `i686-w64-mingw32-gcc payload.c -L"C:\folder\of\syscalls.lib" -lsyscalls -o payload.exe -m64 -O0`
+
+You can compile also on linux with mingw. 
+
+The masm assembler (ml64.exe) is not available on linux, but i placed a precompiled syscalls.lib in the "examples-output" directory so you can use the precompiled one in the compilation in point 4.
+
+Or if you prefer you can also compile by yourself the lib with the command 2. on a Windows machine.
+
 ## Caveats and Limitations
 
 - Only 64-bit Windows is supported at this time.
