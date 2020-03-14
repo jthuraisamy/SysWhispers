@@ -20,9 +20,19 @@
     "definition": "typedef enum _KEY_SET_INFORMATION_CLASS\n{\n\tKeyWriteTimeInformation,\n\tKeyWow64FlagsInformation,\n\tKeyControlFlagsInformation,\n\tKeySetVirtualizationInformation,\n\tKeySetDebugInformation,\n\tKeySetHandleTagsInformation,\n\tMaxKeySetInfoClass  // MaxKeySetInfoClass should always be the last enum.\n} KEY_SET_INFORMATION_CLASS, *PKEY_SET_INFORMATION_CLASS;"
   },
   {
-    "identifiers": ["SYSTEM_INFORMATION_CLASS", "PSYSTEM_INFORMATION_CLASS"],
+    "identifiers": ["SYSTEM_HANDLE", "PSYSTEM_HANDLE"],
     "dependencies": [],
-    "definition": "typedef enum _SYSTEM_INFORMATION_CLASS\n{\n\tSystemBasicInformation = 0,\n\tSystemPerformanceInformation = 2,\n\tSystemTimeOfDayInformation = 3,\n\tSystemProcessInformation = 5,\n\tSystemProcessorPerformanceInformation = 8,\n\tSystemInterruptInformation = 23,\n\tSystemExceptionInformation = 33,\n\tSystemRegistryQuotaInformation = 37,\n\tSystemLookasideInformation = 45,\n\tSystemCodeIntegrityInformation = 103,\n\tSystemPolicyInformation = 134,\n} SYSTEM_INFORMATION_CLASS, *PSYSTEM_INFORMATION_CLASS;"
+    "definition": "typedef struct _SYSTEM_HANDLE\n{\n\tULONG ProcessId;\n\tBYTE ObjectTypeNumber;\n\tBYTE Flags;\n\tUSHORT Handle;\n\tPVOID Object;\n\tACCESS_MASK GrantedAccess;\n} SYSTEM_HANDLE, *PSYSTEM_HANDLE;"
+  },
+  {
+    "identifiers": ["SYSTEM_HANDLE_INFORMATION", "PSYSTEM_HANDLE_INFORMATION"],
+    "dependencies": ["SYSTEM_HANDLE"],
+    "definition": "typedef struct _SYSTEM_HANDLE_INFORMATION\n{\n\tULONG HandleCount;\n\tSYSTEM_HANDLE Handles[1];\n} SYSTEM_HANDLE_INFORMATION, *PSYSTEM_HANDLE_INFORMATION;"
+  },
+  {
+    "identifiers": ["SYSTEM_INFORMATION_CLASS", "PSYSTEM_INFORMATION_CLASS"],
+    "dependencies": ["SYSTEM_HANDLE_INFORMATION"],
+    "definition": "typedef enum _SYSTEM_INFORMATION_CLASS\n{\n\tSystemBasicInformation = 0,\n\tSystemPerformanceInformation = 2,\n\tSystemTimeOfDayInformation = 3,\n\tSystemProcessInformation = 5,\n\tSystemProcessorPerformanceInformation = 8,\n\tSystemHandleInformation = 16,\n\tSystemInterruptInformation = 23,\n\tSystemExceptionInformation = 33,\n\tSystemRegistryQuotaInformation = 37,\n\tSystemLookasideInformation = 45,\n\tSystemCodeIntegrityInformation = 103,\n\tSystemPolicyInformation = 134,\n} SYSTEM_INFORMATION_CLASS, *PSYSTEM_INFORMATION_CLASS;"
   },
   {
     "identifiers": ["PROCESSINFOCLASS", "PPROCESSINFOCLASS"],
@@ -337,7 +347,7 @@
   {
     "identifiers": ["CLIENT_ID", "PCLIENT_ID"],
     "dependencies": [],
-    "definition": "typedef struct _CLIENT_ID\n{\n\tvoid* UniqueProcess;\n\tvoid* UniqueThread;\n} CLIENT_ID, *PCLIENT_ID;"
+    "definition": "typedef struct _CLIENT_ID\n{\n\tHANDLE UniqueProcess;\n\tHANDLE UniqueThread;\n} CLIENT_ID, *PCLIENT_ID;"
   },
   {
     "identifiers": ["PORT_MESSAGE", "PPORT_MESSAGE"],
