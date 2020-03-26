@@ -8931,7 +8931,7 @@
       },
       {
         "name": "SigningLevel",
-        "type": "PSE_SIGNING_LEVEL",
+        "type": "PSE_SIGNING_LEVEL_2",
         "in": false,
         "out": true,
         "optional": false
@@ -13890,7 +13890,7 @@
       },
       {
         "name": "InputSigningLevel",
-        "type": "SE_SIGNING_LEVEL",
+        "type": "SE_SIGNING_LEVEL_2",
         "in": true,
         "out": false,
         "optional": false
@@ -16078,7 +16078,7 @@
       },
       {
         "name": "ExtendedParameters",
-        "type": "PMEM_EXTENDED_PARAMETER",
+        "type": "PMEM_EXTENDED_PARAMETER_2",
         "in": true,
         "out": false,
         "optional": false

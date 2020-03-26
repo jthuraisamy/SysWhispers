@@ -480,13 +480,13 @@
     "definition": "typedef enum _TIMER_INFORMATION_CLASS\n{\n\tTimerBasicInformation\n} TIMER_INFORMATION_CLASS, *PTIMER_INFORMATION_CLASS;"
   },
   {
-    "identifiers": ["MEM_EXTENDED_PARAMETER", "PMEM_EXTENDED_PARAMETER"],
+    "identifiers": ["MEM_EXTENDED_PARAMETER_2", "PMEM_EXTENDED_PARAMETER_2"],
     "dependencies": [],
-    "definition": "typedef struct MEM_EXTENDED_PARAMETER {\n  struct {\n\tDWORD64 Type;\n\tDWORD64 Reserved;\n  } DUMMYSTRUCTNAME;\n  union {\n\tDWORD64 ULong64;\n\tPVOID   Pointer;\n\tSIZE_T  Size;\n\tHANDLE  Handle;\n\tDWORD   ULong;\n  } DUMMYUNIONNAME;\n} MEM_EXTENDED_PARAMETER, *PMEM_EXTENDED_PARAMETER;"
+    "definition": "typedef struct MEM_EXTENDED_PARAMETER_2 {\n  struct {\n\tDWORD64 Type;\n\tDWORD64 Reserved;\n  } DUMMYSTRUCTNAME;\n  union {\n\tDWORD64 ULong64;\n\tPVOID   Pointer;\n\tSIZE_T  Size;\n\tHANDLE  Handle;\n\tDWORD   ULong;\n  } DUMMYUNIONNAME;\n} MEM_EXTENDED_PARAMETER_2, *PMEM_EXTENDED_PARAMETER_2;"
   },
   {
-    "identifiers": ["SE_SIGNING_LEVEL", "PSE_SIGNING_LEVEL"],
+    "identifiers": ["SE_SIGNING_LEVEL_2", "PSE_SIGNING_LEVEL_2"],
     "dependencies": [],
-    "definition": "typedef ULONG SE_SIGNING_LEVEL, *PSE_SIGNING_LEVEL;"
+    "definition": "typedef ULONG SE_SIGNING_LEVEL_2, *PSE_SIGNING_LEVEL_2;"
   }
 ]
