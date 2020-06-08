@@ -266,7 +266,7 @@ class SysWhispers(object):
             if 'Windows 8' in compatible_versions:
                 for build in self.version_syscall_map(function_name)['Windows 8']:
                     if isinstance(jmespath.search(build['jmespath'], self.syscall_numbers), int):
-                        code += '\tcmp dword ptr [rax+11ch], 2\n'
+                        code += f'\tcmp dword ptr [rax+11ch], {build["version"][2]}\n'
                         code += f'\tje  {function_name}_SystemCall_{build["version"].replace(".", "_")}\n'
             code += f'\tjmp {function_name}_SystemCall_Unknown\n'
 
@@ -276,7 +276,7 @@ class SysWhispers(object):
             code += '; Check build number for Windows Vista.\n'
             for build in self.version_syscall_map(function_name)['Windows Vista']:
                 if jmespath.search(build['jmespath'], self.syscall_numbers):
-                    code += f'\tcmp dword ptr [rax+120h], {build["version"].split(".")[-1]}\n'
+                    code += f'\tcmp word ptr [rax+120h], {build["version"].split(".")[-1]}\n'
                     code += f'\tje  {function_name}_SystemCall_{build["version"].replace(".", "_")}\n'
             code += f'\tjmp {function_name}_SystemCall_Unknown\n'
 
@@ -286,7 +286,7 @@ class SysWhispers(object):
             code += '; Check build number for Windows 7.\n'
             for build in self.version_syscall_map(function_name)['Windows 7']:
                 if jmespath.search(build['jmespath'], self.syscall_numbers):
-                    code += f'\tcmp dword ptr [rax+120h], {build["version"].split(".")[-1]}\n'
+                    code += f'\tcmp word ptr [rax+120h], {build["version"].split(".")[-1]}\n'
                     code += f'\tje  {function_name}_SystemCall_{build["version"].replace(".", "_")}\n'
             code += f'\tjmp {function_name}_SystemCall_Unknown\n'
 
@@ -296,7 +296,7 @@ class SysWhispers(object):
             code += '; Check build number for Windows 10.\n'
             for build in self.version_syscall_map(function_name)['Windows 10']:
                 if jmespath.search(build['jmespath'], self.syscall_numbers):
-                    code += f'\tcmp dword ptr [rax+120h], {build["version"].split(".")[-1]}\n'
+                    code += f'\tcmp word ptr [rax+120h], {build["version"].split(".")[-1]}\n'
                     code += f'\tje  {function_name}_SystemCall_{build["version"].replace(".", "_")}\n'
             code += f'\tjmp {function_name}_SystemCall_Unknown\n'
 
