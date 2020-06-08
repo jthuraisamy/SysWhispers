@@ -54,7 +54,7 @@
       },
       {
         "name": "AccessStatus",
-        "type": "PBOOLEAN",
+        "type": "PNTSTATUS",
         "in": false,
         "out": true,
         "optional": false
@@ -919,7 +919,7 @@
       },
       {
         "name": "ZeroBits",
-        "type": "ULONG",
+        "type": "ULONG_PTR",
         "in": true,
         "out": false,
         "optional": false
@@ -5700,7 +5700,7 @@
     "params": [
       {
         "name": "Routine",
-        "type": "PENCLAVE_ROUTINE",
+        "type": "PVOID",
         "in": true,
         "out": false,
         "optional": false
@@ -5915,7 +5915,7 @@
       },
       {
         "name": "KeyArray",
-        "type": "HANDLE",
+        "type": "PHANDLE",
         "in": true,
         "out": false,
         "optional": false
@@ -8931,7 +8931,7 @@
       },
       {
         "name": "SigningLevel",
-        "type": "PSE_SIGNING_LEVEL",
+        "type": "PVOID",
         "in": false,
         "out": true,
         "optional": false
@@ -13890,7 +13890,7 @@
       },
       {
         "name": "InputSigningLevel",
-        "type": "SE_SIGNING_LEVEL",
+        "type": "PVOID",
         "in": true,
         "out": false,
         "optional": false
@@ -16078,7 +16078,7 @@
       },
       {
         "name": "ExtendedParameters",
-        "type": "PMEM_EXTENDED_PARAMETER",
+        "type": "PVOID",
         "in": true,
         "out": false,
         "optional": false

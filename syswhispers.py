@@ -8,14 +8,13 @@ import operator
 import os
 from pprint import pprint
 
-
 class SysWhispers(object):
 
-    def __init__(self):
+    def __init__(self, nasm = False):
         self.typedefs: list = json.load(open('./data/typedefs.json'))
         self.prototypes: dict = json.load(open('./data/prototypes.json'))
         self.syscall_numbers: dict = json.load(open('./data/syscall_numbers.json'))
-
+        self.isnasm = nasm;
         self.version_syscall_map = lambda function_name: {
             'Windows XP': [{
                 'version': '5.X.XXXX',
@@ -100,7 +99,10 @@ class SysWhispers(object):
             }]
         }
 
-    def generate(self, function_names: list = (), versions: list = (), basename: str = 'syscalls'):
+    def generate(self, function_names: list = (), versions: list = (), basename: str = 'syscalls', isnasm: bool = None):
+        if isnasm is not None:
+            self.isnasm = isnasm
+
         if not function_names:
             function_names = list(self.syscall_numbers.keys())
 
@@ -108,14 +110,20 @@ class SysWhispers(object):
 
         # Write ASM file.
         with open(f'{basename}.asm', 'wb') as hnd:
-            hnd.write(b'.code\n\n')
+            if self.isnasm:
+                hnd.write(b'SECTION .text\n\n')
+                for function_name in function_names:
+                    hnd.write(f'global _{function_name}\n'.encode())
+            else:
+                hnd.write(b'.code\n\n')
             for function_name in function_names:
                 try:
                     hnd.write((self._get_function_asm_code(function_name, versions) + '\n').encode())
                 except ValueError as incompatible_function:
                     print(f'WARNING: {incompatible_function}')
                     excluded_functions.append(function_name)
-            hnd.write(b'end')
+            if not self.isnasm:
+                hnd.write(b'end')
 
         function_names = list(set(function_names) - set(excluded_functions))
         if not function_names:
@@ -127,7 +135,7 @@ class SysWhispers(object):
 
         # Write header file.
         with open(f'{basename}.h', 'wb') as hnd:
-            hnd.write(b'#pragma once\n\n#include <Windows.h>\n\n')
+            hnd.write(b'#pragma once\n\n#include <windows.h>\n\n')
             for typedef in self._get_typedefs(function_names):
                 hnd.write(typedef.encode() + b'\n\n')
             for function_name in function_names:
@@ -196,7 +204,10 @@ class SysWhispers(object):
             raise ValueError('Invalid function name provided.')
 
         num_params = len(self.prototypes[function_name]['params'])
-        signature = f'EXTERN_C NTSTATUS {function_name}('
+        if self.isnasm:
+            signature = f'EXTERN_C NTSTATUS _{function_name}('
+        else:
+            signature = f'EXTERN_C NTSTATUS {function_name}('
         if num_params:
             for i in range(num_params):
                 param = self.prototypes[function_name]['params'][i]
@@ -235,21 +246,27 @@ class SysWhispers(object):
 
         # Generate 64-bit ASM code.
         code = ''
-        code += f'{function_name} PROC\n'
-        code += '\tmov rax, gs:[60h]'.ljust(len(function_name) + 28)
+        ptr = ''
+        if self.isnasm:
+            code += f'_{function_name}:\n'
+            code += '\tmov rax, [gs:60h]'.ljust(len(function_name) + 28)
+        else:
+            code += f'{function_name} PROC\n'
+            code += '\tmov rax, gs:[60h]'.ljust(len(function_name) + 28)
+            ptr = 'ptr '
         code += '; Load PEB into RAX.\n'
 
         # Code to check major version.
         code += f'{function_name}_Check_X_X_XXXX:'.ljust(len(function_name) + 31)
         code += '; Check major version.\n'
         if 'Windows XP' in compatible_versions:
-            code += '\tcmp dword ptr [rax+118h], 5\n'
+            code += f'\tcmp dword {ptr}[rax+118h], 5\n'
             code += f'\tje  {function_name}_SystemCall_5_X_XXXX\n'
         if any(v in compatible_versions for v in ['Windows Vista', 'Windows 7', 'Windows 8']):
-            code += '\tcmp dword ptr [rax+118h], 6\n'
+            code += f'\tcmp dword {ptr}[rax+118h], 6\n'
             code += f'\tje  {function_name}_Check_6_X_XXXX\n'
         if 'Windows 10' in compatible_versions:
-            code += '\tcmp dword ptr [rax+118h], 10\n'
+            code += f'\tcmp dword {ptr}[rax+118h], 10\n'
             code += f'\tje  {function_name}_Check_10_0_XXXX\n'
         code += f'\tjmp {function_name}_SystemCall_Unknown\n'
 
@@ -258,15 +275,15 @@ class SysWhispers(object):
             code += f'{function_name}_Check_6_X_XXXX:'.ljust(len(function_name) + 31)
             code += '; Check minor version for Windows Vista/7/8.\n'
             if 'Windows Vista' in compatible_versions:
-                code += '\tcmp dword ptr [rax+11ch], 0\n'
+                code += f'\tcmp dword {ptr}[rax+11ch], 0\n'
                 code += f'\tje  {function_name}_Check_6_0_XXXX\n'
             if 'Windows 7' in compatible_versions:
-                code += '\tcmp dword ptr [rax+11ch], 1\n'
+                code += f'\tcmp dword {ptr}[rax+11ch], 1\n'
                 code += f'\tje  {function_name}_Check_6_1_XXXX\n'
             if 'Windows 8' in compatible_versions:
                 for build in self.version_syscall_map(function_name)['Windows 8']:
                     if isinstance(jmespath.search(build['jmespath'], self.syscall_numbers), int):
-                        code += f'\tcmp dword ptr [rax+11ch], {build["version"][2]}\n'
+                        code += f'\tcmp dword {ptr}[rax+11ch], {build["version"][2]}\n'
                         code += f'\tje  {function_name}_SystemCall_{build["version"].replace(".", "_")}\n'
             code += f'\tjmp {function_name}_SystemCall_Unknown\n'
 
@@ -276,7 +293,7 @@ class SysWhispers(object):
             code += '; Check build number for Windows Vista.\n'
             for build in self.version_syscall_map(function_name)['Windows Vista']:
                 if jmespath.search(build['jmespath'], self.syscall_numbers):
-                    code += f'\tcmp word ptr [rax+120h], {build["version"].split(".")[-1]}\n'
+                    code += f'\tcmp word {ptr}[rax+120h], {build["version"].split(".")[-1]}\n'
                     code += f'\tje  {function_name}_SystemCall_{build["version"].replace(".", "_")}\n'
             code += f'\tjmp {function_name}_SystemCall_Unknown\n'
 
@@ -286,7 +303,7 @@ class SysWhispers(object):
             code += '; Check build number for Windows 7.\n'
             for build in self.version_syscall_map(function_name)['Windows 7']:
                 if jmespath.search(build['jmespath'], self.syscall_numbers):
-                    code += f'\tcmp word ptr [rax+120h], {build["version"].split(".")[-1]}\n'
+                    code += f'\tcmp word {ptr}[rax+120h], {build["version"].split(".")[-1]}\n'
                     code += f'\tje  {function_name}_SystemCall_{build["version"].replace(".", "_")}\n'
             code += f'\tjmp {function_name}_SystemCall_Unknown\n'
 
@@ -296,7 +313,7 @@ class SysWhispers(object):
             code += '; Check build number for Windows 10.\n'
             for build in self.version_syscall_map(function_name)['Windows 10']:
                 if jmespath.search(build['jmespath'], self.syscall_numbers):
-                    code += f'\tcmp word ptr [rax+120h], {build["version"].split(".")[-1]}\n'
+                    code += f'\tcmp word {ptr}[rax+120h], {build["version"].split(".")[-1]}\n'
                     code += f'\tje  {function_name}_SystemCall_{build["version"].replace(".", "_")}\n'
             code += f'\tjmp {function_name}_SystemCall_Unknown\n'
 
@@ -320,7 +337,8 @@ class SysWhispers(object):
         code += '\tmov r10, rcx\n'
         code += '\tsyscall\n'
         code += '\tret\n'
-        code += f'{function_name} ENDP\n'
+        if not self.isnasm:
+            code += f'{function_name} ENDP\n'
 
         return code
 
@@ -338,12 +356,13 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--preset', help='Preset ("all", "common")', required=False)
-    parser.add_argument('-f', '--functions', help='Comma-separated functions', required=False)
+    parser.add_argument('-f', '--functions', help='Comma-separated functions, OR path to file on disk with newline separated list of functions', required=False)
+    parser.add_argument('-n', '--nasm', help='Generate nasm compatible asm', action='store_true')
     parser.add_argument('-v', '--versions', help='Comma-separated versions (XP, Vista, 7, 8, 10)', required=False)
     parser.add_argument('-o', '--out-file', help='Output basename (w/o extension)', required=True)
     args = parser.parse_args()
 
-    sw = SysWhispers()
+    sw = SysWhispers(args.nasm)
 
     if args.preset == 'all':
         print('All functions selected.\n')
@@ -405,7 +424,11 @@ if __name__ == '__main__':
             '10': 'Windows 10'
         }
 
-        functions = args.functions.split(',') if args.functions else []
+        if os.path.exists(args.functions):
+            with open(args.functions) as fp:
+                functions = [f.strip('\r\n') for f in fp.readlines()]
+        else:
+            functions = args.functions.split(',') if args.functions else []
         versions = [versions_map[v] for v in args.versions.lower().split(',') if
                     v in versions_map] if args.versions else []
         sw.generate(functions, versions, args.out_file)
