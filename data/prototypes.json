@@ -912,7 +912,7 @@
       },
       {
         "name": "BaseAddress",
-        "type": "PVOID",
+        "type": "PVOID *",
         "in": true,
         "out": true,
         "optional": false
@@ -926,7 +926,7 @@
       },
       {
         "name": "RegionSize",
-        "type": "PULONG",
+        "type": "PSIZE_T",
         "in": true,
         "out": true,
         "optional": false
@@ -1166,14 +1166,14 @@
       },
       {
         "name": "BaseAddress",
-        "type": "PVOID",
+        "type": "PVOID *",
         "in": true,
         "out": true,
         "optional": false
       },
       {
         "name": "RegionSize",
-        "type": "PULONG",
+        "type": "PSIZE_T",
         "in": true,
         "out": true,
         "optional": false
@@ -2314,14 +2314,14 @@
       },
       {
         "name": "NumberOfBytesToWrite",
-        "type": "ULONG",
+        "type": "SIZE_T",
         "in": true,
         "out": false,
         "optional": false
       },
       {
         "name": "NumberOfBytesWritten",
-        "type": "PULONG",
+        "type": "PSIZE_T",
         "in": false,
         "out": true,
         "optional": true
@@ -2470,14 +2470,14 @@
       },
       {
         "name": "BufferSize",
-        "type": "ULONG",
+        "type": "SIZE_T",
         "in": true,
         "out": false,
         "optional": false
       },
       {
         "name": "NumberOfBytesRead",
-        "type": "PULONG",
+        "type": "PSIZE_T",
         "in": false,
         "out": true,
         "optional": true
@@ -3054,14 +3054,14 @@
       },
       {
         "name": "BaseAddress",
-        "type": "PVOID",
+        "type": "PVOID *",
         "in": true,
         "out": true,
         "optional": false
       },
       {
         "name": "RegionSize",
-        "type": "PULONG",
+        "type": "PSIZE_T",
         "in": true,
         "out": true,
         "optional": false
@@ -15613,14 +15613,14 @@
       },
       {
         "name": "BaseAddress",
-        "type": "PVOID",
+        "type": "PVOID *",
         "in": true,
         "out": false,
         "optional": false
       },
       {
         "name": "NumberOfBytesToUnlock",
-        "type": "PULONG",
+        "type": "PSIZE_T",
         "in": true,
         "out": false,
         "optional": false
