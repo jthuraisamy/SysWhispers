@@ -386,11 +386,6 @@
       "SP2": 102
     }
   },
-  "NtAcquireCrossVmMutant": {
-    "Windows 10": {
-      "2004": 103
-    }
-  },
   "NtAcquireProcessActivityReference": {
     "Windows 10": {
       "1703": 103,
@@ -919,11 +914,6 @@
       "1903": 114,
       "1909": 114,
       "2004": 115
-    }
-  },
-  "NtAllocateUserPhysicalPagesEx": {
-    "Windows 10": {
-      "2004": 116
     }
   },
   "NtAllocateUuids": {
@@ -2895,11 +2885,6 @@
       "1903": 160,
       "1909": 160,
       "2004": 163
-    }
-  },
-  "NtCreateCrossVmMutant": {
-    "Windows 10": {
-      "2004": 164
     }
   },
   "NtCreateDebugObject": {
@@ -5237,11 +5222,6 @@
       "2004": 7
     }
   },
-  "NtDirectGraphicsCall": {
-    "Windows 10": {
-      "2004": 217
-    }
-  },
   "NtDisableLastKnownGood": {
     "Windows Server 2008": {
       "R2": 183,
@@ -7559,11 +7539,6 @@
       "1903": 259,
       "1909": 259,
       "2004": 264
-    }
-  },
-  "NtLoadKey3": {
-    "Windows 10": {
-      "2004": 470
     }
   },
   "NtLoadKeyEx": {
@@ -10171,11 +10146,6 @@
       "1903": 80,
       "1909": 80,
       "2004": 80
-    }
-  },
-  "NtPssCaptureVaSpaceBulk": {
-    "Windows 10": {
-      "2004": 316
     }
   },
   "NtPullTransaction": {

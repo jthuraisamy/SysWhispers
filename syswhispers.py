@@ -6,6 +6,7 @@ import jmespath
 import functools
 import operator
 import os
+import sys
 from pprint import pprint
 
 
@@ -158,7 +159,13 @@ class SysWhispers(object):
         # Determine typedefs to use.
         used_typedefs = []
         for function_name in function_names:
-            for param in self.prototypes[function_name]['params']:
+            try:
+                prototypes = self.prototypes[function_name]
+            except KeyError:
+                print(f"Function prototype not found in prototypes.json: {function_name}")
+                sys.exit(1)
+
+            for param in prototypes['params']:
                 if list(filter(lambda t: param['type'] in t['identifiers'], self.typedefs)):
                     if param['type'] not in used_typedefs:
                         used_typedefs.append(param['type'])

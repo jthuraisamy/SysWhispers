@@ -16267,5 +16267,25 @@
         "optional": false
       }
     ]
+  },
+  "NtContinueEx": {
+    "type": "NTSTATUS",
+    "lib": "ntdll.dll",
+    "params": [
+      {
+        "name": "ContextRecord",
+        "type": "PCONTEXT",
+        "in": true,
+        "out": false,
+        "optional": false
+      },
+      {
+        "name": "ContinueArgument",
+        "type": "PKCONTINUE_ARGUMENT",
+        "in": true,
+        "out": false,
+        "optional": false
+      }
+    ]
   }
 }
