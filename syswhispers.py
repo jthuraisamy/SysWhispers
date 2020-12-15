@@ -97,6 +97,10 @@ class SysWhispers(object):
                 'version': '10.0.19041',
                 'description': 'Windows 10.0.19041 (2004)',
                 'jmespath': f'{function_name}."Windows 10"."2004"'
+            }, {
+                'version': '10.0.19042',
+                'description': 'Windows 10.0.19042 (20H2)',
+                'jmespath': f'{function_name}."Windows 10"."20H2"'
             }]
         }
 
