@@ -1329,14 +1329,14 @@
       },
       {
         "name": "MemoryInformationLength",
-        "type": "ULONG",
+        "type": "SIZE_T",
         "in": true,
         "out": false,
         "optional": false
       },
       {
         "name": "ReturnLength",
-        "type": "PULONG",
+        "type": "PSIZE_T",
         "in": false,
         "out": true,
         "optional": true
