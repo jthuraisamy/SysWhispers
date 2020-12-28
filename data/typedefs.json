@@ -1,5 +1,10 @@
 [
   {
+    "identifiers": ["NTSTATUS"],
+    "dependencies": [],
+    "definition": "typedef ULONG NTSTATUS;"
+  },
+  {
     "identifiers": ["MEM_EXTENDED_PARAMETER_TYPE", "PMEM_EXTENDED_PARAMETER_TYPE"],
     "dependencies": [],
     "definition": "typedef enum _MEM_EXTENDED_PARAMETER_TYPE\n{\n\tMemExtendedParameterInvalidType,\n\tMemExtendedParameterAddressRequirements,\n\tMemExtendedParameterNumaNode,\n\tMemExtendedParameterPartitionHandle,\n\tMemExtendedParameterUserPhysicalHandle,\n\tMemExtendedParameterAttributeFlags,\n\tMemExtendedParameterMax\n} MEM_EXTENDED_PARAMETER_TYPE, *PMEM_EXTENDED_PARAMETER_TYPE;"
