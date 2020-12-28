@@ -131,7 +131,7 @@ class SysWhispers(object):
 
         # Write header file.
         with open(f'{basename}.h', 'wb') as hnd:
-            hnd.write(b'#pragma once\n\n#include <Windows.h>\n\n')
+            hnd.write(b'#pragma once\n\n#include <Windows.h>\n\ntypedef ULONG NTSTATUS;\n\n')
             for typedef in self._get_typedefs(function_names):
                 hnd.write(typedef.encode() + b'\n\n')
             for function_name in function_names:
