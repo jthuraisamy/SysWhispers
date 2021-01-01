@@ -240,7 +240,7 @@ class SysWhispers(object):
         # Generate 64-bit ASM code.
         code = ''
         code += f'{function_name} PROC\n'
-        code += '\tmov rax, gs:[60h]'.ljust(len(function_name) + 28)
+        code += '\tmov rax, gs:[60h]'.ljust(len(function_name) + 24)
         code += '; Load PEB into RAX.\n'
 
         # Code to check major version.
