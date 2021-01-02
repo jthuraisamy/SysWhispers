@@ -1,10 +1,5 @@
 [
   {
-    "identifiers": ["NTSTATUS"],
-    "dependencies": [],
-    "definition": "typedef ULONG NTSTATUS;"
-  },
-  {
     "identifiers": ["MEM_EXTENDED_PARAMETER_TYPE", "PMEM_EXTENDED_PARAMETER_TYPE"],
     "dependencies": [],
     "definition": "typedef enum _MEM_EXTENDED_PARAMETER_TYPE\n{\n\tMemExtendedParameterInvalidType,\n\tMemExtendedParameterAddressRequirements,\n\tMemExtendedParameterNumaNode,\n\tMemExtendedParameterPartitionHandle,\n\tMemExtendedParameterUserPhysicalHandle,\n\tMemExtendedParameterAttributeFlags,\n\tMemExtendedParameterMax\n} MEM_EXTENDED_PARAMETER_TYPE, *PMEM_EXTENDED_PARAMETER_TYPE;"
@@ -493,5 +488,16 @@
     "identifiers": ["TIMER_INFORMATION_CLASS", "PTIMER_INFORMATION_CLASS"],
     "dependencies": [],
     "definition": "typedef enum _TIMER_INFORMATION_CLASS\n{\n\tTimerBasicInformation\n} TIMER_INFORMATION_CLASS, *PTIMER_INFORMATION_CLASS;"
+  },
+  {
+    "identifiers": ["KCONTINUE_TYPE"],
+    "dependencies": [],
+    "definition": "typedef enum _KCONTINUE_TYPE\n{\n\tKCONTINUE_UNWIND,\n\tKCONTINUE_RESUME,\n\tKCONTINUE_LONGJUMP,\n\tKCONTINUE_SET,\n\tKCONTINUE_LAST\n} KCONTINUE_TYPE;"
+
+  },
+  {
+    "identifiers": ["KCONTINUE_ARGUMENT", "PKCONTINUE_ARGUMENT"],
+    "dependencies": ["KCONTINUE_TYPE"],
+    "definition": "typedef struct _KCONTINUE_ARGUMENT\n{\n\tKCONTINUE_TYPE ContinueType;\n\tULONG          ContinueFlags;\n\tULONGLONG      Reserved[2];\n} KCONTINUE_ARGUMENT, *PKCONTINUE_ARGUMENT;"
   }
 ]
